@@ -1,7 +1,7 @@
 # KREDIA — application Android (Flutter)
 
 > **Non compilée dans l'environnement de génération** (SDK Flutter absent). Le code est écrit pour
-> `supabase_flutter ^2.8` / Flutter ≥ 3.24 : exécutez `flutter analyze` et `flutter test` avant toute chose.
+> `supabase_flutter ^2.8` / Flutter ≥ 3.27 : exécutez `flutter analyze` et `flutter test` avant toute chose.
 
 ## Initialiser les fichiers de plateforme
 Ce dépôt ne contient que `lib/`, `test/` et `pubspec.yaml`. Générez le projet Android :

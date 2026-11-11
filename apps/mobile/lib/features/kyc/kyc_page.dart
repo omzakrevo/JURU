@@ -68,7 +68,7 @@ class _KycPageState extends State<KycPage> {
       appBar: AppBar(title: const Text("Vérification d'identité")),
       body: ListView(padding: const EdgeInsets.all(16), children: [
         DropdownButtonFormField<String>(
-          initialValue: _type,
+          value: _type,
           items: const [DropdownMenuItem(value: 'cnib', child: Text('CNIB')), DropdownMenuItem(value: 'passport', child: Text('Passeport')), DropdownMenuItem(value: 'driving_license', child: Text('Permis')), DropdownMenuItem(value: 'residence_card', child: Text('Carte de séjour'))],
           onChanged: (v) => setState(() => _type = v ?? 'cnib'),
           decoration: const InputDecoration(labelText: 'Type de pièce'),
