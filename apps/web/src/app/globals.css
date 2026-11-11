@@ -1,0 +1,65 @@
+@import '@fontsource-variable/inter';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design system KREDIA — vert profond, émeraude, blanc cassé, bleu nuit */
+:root {
+  --bg: 247 245 239;          /* blanc cassé */
+  --surface: 255 255 255;
+  --surface-2: 241 238 229;
+  --fg: 11 27 58;             /* bleu nuit */
+  --muted: 92 105 128;
+  --border: 224 220 207;
+  --primary: 11 77 58;        /* vert profond */
+  --primary-fg: 255 255 255;
+  --primary-soft: 220 238 230;
+  --accent: 16 185 129;       /* émeraude */
+  --accent-soft: 209 250 229;
+  --night: 11 27 58;
+  --success: 22 128 74;
+  --warning: 180 106 8;
+  --danger: 192 38 54;
+  --info: 37 99 235;
+  --shadow: 11 27 58;
+  color-scheme: light;
+}
+[data-theme='dark'] {
+  --bg: 8 16 34;
+  --surface: 14 26 50;
+  --surface-2: 20 35 64;
+  --fg: 238 242 247;
+  --muted: 153 168 192;
+  --border: 36 54 88;
+  --primary: 52 211 153;
+  --primary-fg: 6 20 17;
+  --primary-soft: 16 52 46;
+  --accent: 16 185 129;
+  --accent-soft: 14 58 48;
+  --night: 5 10 22;
+  --success: 74 222 128;
+  --warning: 251 191 36;
+  --danger: 248 113 113;
+  --info: 96 165 250;
+  --shadow: 0 0 0;
+  color-scheme: dark;
+}
+
+html { scroll-behavior: smooth; }
+body { @apply bg-bg text-fg font-sans antialiased; font-feature-settings: 'cv11', 'ss01'; }
+::selection { background: rgb(var(--accent) / 0.3); }
+:focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 2px; border-radius: 6px; }
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
+  .card { @apply rounded-2xl border border-border bg-surface shadow-card; }
+  .input { @apply w-full rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm text-fg placeholder:text-muted/70 transition focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 disabled:opacity-60; }
+  .label { @apply mb-1.5 block text-sm font-medium; }
+  .help { @apply mt-1 text-xs text-muted; }
+  .skeleton { @apply relative overflow-hidden rounded-lg bg-surface-2; }
+  .skeleton::after { content: ''; @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}
