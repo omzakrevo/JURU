@@ -119,7 +119,7 @@ export function Table({ head, children, empty }: { head: string[]; children: Rea
 }
 export const Td = (p: ComponentProps<'td'>) => <td {...p} className={clsx('px-4 py-3 align-middle', p.className)} />;
 
-export function KV({ label, children }: { label: string; children: ReactNode }) {
+export function KV({ label, children }: { label: ReactNode; children: ReactNode }) {
   return (
     <div className="flex items-baseline justify-between gap-4 border-b border-border/70 py-2 last:border-0">
       <dt className="text-sm text-muted">{label}</dt>
