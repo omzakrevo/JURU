@@ -29,7 +29,7 @@ GOTRUE_HOOK_SEND_SMS_SECRETS=v1,whsec_<secret>
 # En développement, SANS envoi réel : codes de test fixes (jamais en production)
 GOTRUE_SMS_TEST_OTP=22600000011:123456,22600000013:123456
 ```
-Redémarrez le service `auth`. L'adaptateur `supabase/functions/_shared/smsbus.ts` doit d'abord être complété d'après la documentation SMS Bus (il est volontairement non implémenté : aucun endpoint inventé). Le seed démo crée aussi des comptes **e-mail** (mot de passe `Juru#Demo2026`, développement uniquement) :
+Redémarrez le service `auth`. Définissez ensuite `SMSBUS_ID` (identifiant d'API SMS Bus, secret) et `SMSBUS_SENDER_ID=JURU` dans l'environnement du service `functions` (jamais dans le dépôt). Test rapide d'un envoi : voir docs/DEPLOY.md §SMS Bus. Le seed démo crée aussi des comptes **e-mail** (mot de passe `Juru#Demo2026`, développement uniquement) :
 `admin@juru.demo`, `admin2@…`, `conformite@…`, `credit@…`, `finance@…`, `support@…`, `audit@…`, `compta@…`.
 Les comptes utilisateurs fictifs (Awa, Issouf, Fatimata, Boukary, Salimata) se connectent aussi par e-mail via l'onglet « Équipe » (même mot de passe).
 

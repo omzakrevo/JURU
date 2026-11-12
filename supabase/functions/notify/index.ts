@@ -2,12 +2,12 @@
  * Edge Function — envoi des notifications SMS / push en file d'attente (table notifications).
  * À planifier toutes les minutes (pg_cron + pg_net, ou cron du VPS) avec l'en-tête Authorization: Bearer <NOTIFY_CRON_TOKEN>.
  *
- * ÉTAT : les fournisseurs ne sont PAS connectés. Les adaptateurs lèvent « non configuré » ;
- * les notifications restent « pending » (réessai) puis passent « failed » après 5 tentatives.
- * SMS : adaptateur SMS Bus (`_shared/smsbus.ts`, à compléter d'après sa doc). Push : Firebase Cloud Messaging (compte de service).
+ * SMS Bus actif dès que SMSBUS_ID est défini ; sinon les notifications restent « pending » (réessai) puis « failed » après 5 tentatives.
+ * Push (FCM) : non branché.
+ * SMS : SMS Bus (`_shared/smsbus.ts`). Push : Firebase Cloud Messaging (compte de service).
  */
 import { createClient } from 'jsr:@supabase/supabase-js@2';
-import { sendSms } from '../_shared/smsbus.ts';
+import { loadSmsConfig, sendSms } from '../_shared/smsbus.ts';
 
 interface Notif { id: string; user_id: string; channel: 'sms' | 'push'; title: string; body: string; attempts: number }
 
@@ -27,7 +27,7 @@ Deno.serve(async (req) => {
     try {
       if (n.channel === 'sms') {
         const { data: p } = await supabase.from('profiles').select('phone').eq('id', n.user_id).single();
-        await sendSms(p!.phone!, `${n.title} — ${n.body}`);
+        await sendSms(loadSmsConfig((k) => Deno.env.get(k)), p!.phone!, `${n.title} — ${n.body}`);
       } else {
         const { data: t } = await supabase.from('device_tokens').select('token').eq('user_id', n.user_id);
         await sendPush((t ?? []).map((x: { token: string }) => x.token), n.title, n.body);

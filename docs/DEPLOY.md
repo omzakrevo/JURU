@@ -18,7 +18,8 @@
    select cron.schedule('juru-retention', '30 3 * * 0', $$select apply_retention_policy()$$);
    ```
 7. **Edge Functions** : déployer `payment-webhook`, `notify` et `send-sms-hook` (voir `supabase/functions/`), secrets via l'environnement du service functions.
-8. **SMS Bus** (OTP et rappels) : compléter `_shared/smsbus.ts` d'après la doc, définir `SMSBUS_API_KEY`/`SMSBUS_SENDER_ID` (secrets serveur), déployer `send-sms-hook` (OTP, via le hook GoTrue) et `notify` (rappels).
+8. **SMS Bus** (OTP et rappels) : définir `SMSBUS_ID` (secret) et `SMSBUS_SENDER_ID` dans l'environnement des Edge Functions, déployer `send-sms-hook` (OTP, via le hook GoTrue) et `notify` (rappels). Le format de réponse de SMS Bus n'est pas documenté dans l'exemple fourni : testez un envoi réel, relevez le corps de réponse en cas de succès et, si besoin, renseignez `SMSBUS_SUCCESS_REGEX`. **Rotation des secrets** : l'identifiant SMS Bus et le mot de passe de l'espace client ont circulé en clair (conversation) — changez-les.
+9. **SAS Pay** (inactif) : webhook à créer dans le tableau de bord SAS Pay → URL `https://<api>/functions/v1/payment-webhook/sas-pay`, abonnements `transaction.*` ; copier le `signing_secret` (affiché une seule fois) dans `WEBHOOK_SECRET_SAS_PAY`. **Retraits : whitelister l'IP sortante FIXE** du serveur qui appelle `POST /payouts/initialize/` (sinon 403 `ip_not_whitelisted`). Clés : `sk_test_` en recette ; `sk_live_` interdite par le code tant que les paiements réels ne sont pas activés.
 
 ## Application web (Node)
 ```bash
@@ -42,5 +43,5 @@ Gestionnaire de processus : systemd ou PM2 (`pm2 start npm --name juru -- start`
 ## Passage futur aux paiements réels (hors périmètre actuel)
 Prérequis : agrément/partenariat réglementaire, contrat SAS Pay (Orange Money / Moov Money), documentation et identifiants officiels, validation juridique
 (contrats, signature électronique, taux, KYC/AML), tests en bac à sable fournisseur, revue de sécurité externe, procédure DBA
-documentée et double validée pour passer `payments_live_enabled` à `true`, implémentation de `SasPayGateway` (collect = dépôt, disburse = retrait, webhook signé, getStatus),
+documentée et double validée pour passer `payments_live_enabled` à `true`, orchestration des flux réels autour de `SasPayGateway` (déjà implémentée : collect = dépôt via softpay/checkout, disburse = retrait via payouts, webhook signé, getStatus) : file de collecte prêteur, retraits emprunteur, mise à jour des statuts et écritures comptables après revérification serveur, rapprochement,
 rapprochement quotidien automatisé.

@@ -9,7 +9,7 @@
  * À valider sur votre version de GoTrue (format du hook) avant production.
  */
 import { Webhook } from 'npm:standardwebhooks@1.0.0';
-import { sendSms } from '../_shared/smsbus.ts';
+import { loadSmsConfig, sendSms } from '../_shared/smsbus.ts';
 
 Deno.serve(async (req) => {
   const secret = Deno.env.get('SEND_SMS_HOOK_SECRET');
@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
   const otp = payload.sms?.otp;
   if (!phone || !otp) return new Response('Bad payload', { status: 400 });
   try {
-    await sendSms(phone.startsWith('+') ? phone : `+${phone}`, `JURU : votre code de vérification est ${otp}. Ne le communiquez à personne.`);
+    await sendSms(loadSmsConfig((k) => Deno.env.get(k)), phone, `JURU : votre code de vérification est ${otp}. Ne le communiquez à personne.`);
     return new Response('{}', { status: 200, headers: { 'Content-Type': 'application/json' } });
   } catch (e) {
     // Format d'erreur attendu par les hooks Supabase Auth

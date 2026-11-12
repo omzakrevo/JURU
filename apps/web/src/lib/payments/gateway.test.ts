@@ -19,11 +19,11 @@ describe('PaymentGateway', () => {
     await expect(g.verifyWebhook(body, { 'x-signature': 'deadbeef' })).rejects.toThrow('Signature');
     await expect(g.verifyWebhook(body + ' ', { 'x-signature': g.sign(body) })).rejects.toThrow('Signature');
   });
-  it('SAS Pay : non connecté, aucune API inventée', async () => {
-    const live = getGateway('sas_pay', true);
-    await expect(live.collect({ idempotencyKey: 'x', amount: 1000, payerMsisdn: '+22600000001', reference: 'r' })).rejects.toBeInstanceOf(NotConfiguredError);
-    expect(live.provider).toBe('sas_pay');
-    expect(live.simulated).toBe(false);
+  it('SAS Pay sans clé : refuse de démarrer, aucune requête émise', () => {
+    const prev = process.env.SASPAY_API_KEY;
+    delete process.env.SASPAY_API_KEY;
+    expect(() => getGateway('sas_pay', true)).toThrow(NotConfiguredError);
+    if (prev) process.env.SASPAY_API_KEY = prev;
   });
   it('paiements réels désactivés => toujours simulation', () => {
     expect(getGateway('sas_pay', false).simulated).toBe(true);

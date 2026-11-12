@@ -18,8 +18,10 @@
 - [ ] Compiler/tester l'app Flutter (`flutter analyze/test`), générer le projet Android, FCM
 - [ ] Déployer et tester les Edge Functions (Deno non disponible ici)
 - [ ] Validation juridique : nom JURU, CGU/confidentialité, plafond de taux (usure), signature électronique, règles AML/KYC, durées de conservation, conditions de remboursement anticipé
-- [ ] **SAS Pay** : fournir la documentation (endpoints, auth, signature webhook, statuts) → implémenter `SasPayGateway` + webhook + rapprochement ; contrat et validation juridique avant toute activation
-- [ ] **SMS Bus** : fournir la documentation → compléter `_shared/smsbus.ts` (hook OTP + notify) ; OTP de re-signature ; filtrage sanctions/PEP ; liveness/OCR KYC
+- [x] `SasPayGateway` (softpay, payouts, verify, webhook signé) et webhook Edge Function — testés avec requêtes simulées ; **jamais essayés contre l'API réelle**
+- [ ] **SAS Pay — orchestration live** : file de collecte prêteur (redirection `checkout_url`, OTP Orange BF), retraits emprunteur (IP whitelistée), traitement des webhooks → revérification `verify` → mise à jour statuts + écritures comptables (frais SAS Pay `fee`/`fee_charge_mode` dans le ledger 5010), rapprochement ; essais `sk_test_` ; contrat et validation juridique avant toute activation
+- [x] Client SMS Bus (`_shared/smsbus.ts`), hook OTP GoTrue et file `notify` — testés avec requêtes simulées ; **à essayer en réel** (format de réponse de SMS Bus à confirmer)
+- [ ] OTP de re-signature ; filtrage sanctions/PEP ; liveness/OCR KYC
 - [ ] Génération du PDF contrat côté serveur stockée dans Storage `contracts` (actuellement PDF à la volée) ; partenaires : portail dédié (rôle `partner`)
 - [ ] Tests E2E navigateur (Playwright) sur instance Supabase de test ; revue de sécurité externe
 - [ ] Prêts partiels (financement par plusieurs prêteurs), multi-pays UEMOA (devises/règles), i18n

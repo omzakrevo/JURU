@@ -83,7 +83,7 @@ décaissements et l'attribution de rôles privilégiés. L'exécution se fait da
 
 ## 7. Paiements (PaymentGateway)
 Interface TypeScript/Deno `PaymentGateway` (`collect`, `disburse`, `getStatus`, `verifyWebhook`)
-avec deux implémentations : `SimulationGateway` (actif) et `SasPayGateway` (**squelette non connecté** : aucune API ni clé inventée).
+avec deux implémentations : `SimulationGateway` (actif) et `SasPayGateway` (**implémenté d'après docs.saspay.me, inactif** : jamais instancié tant que les paiements réels sont désactivés ; clé `sk_live_` refusée sans activation explicite).
 SAS Pay est l'agrégateur retenu pour Orange Money et Moov Money (dépôt = `collect`, retrait = `disburse`) ; SMS Bus envoie les SMS (OTP via hook GoTrue, rappels via `notify`).
 Les webhooks arrivent sur l'Edge Function `payment-webhook` : vérification de signature (HMAC,
 secret en variable d'environnement serveur), insertion idempotente dans

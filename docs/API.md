@@ -47,10 +47,10 @@ Tables lisibles selon le rôle ; vues contrôlées : `marketplace_requests` (pr�
 loans, contrats, remboursements, paiements, ledger, audit (privilèges retirés + RLS).
 
 ## Edge Functions
-- `POST /functions/v1/payment-webhook/sas-pay` — signature HMAC, stockage idempotent. **Non connecté** (503 sans secret) ; format à confirmer d'après la doc SAS Pay.
-- `POST /functions/v1/send-sms-hook` — hook GoTrue « Send SMS » : envoie l'OTP via SMS Bus (signature Standard Webhooks). **Adaptateur SMS Bus non implémenté.**
+- `POST /functions/v1/payment-webhook/sas-pay` — signature HMAC, stockage idempotent. En-têtes `X-Webhook-Signature` / `X-Webhook-Timestamp`, HMAC-SHA256 de `timestamp.corps`, tolérance 5 min, clé d'idempotence `event:id` ; stocke seulement (pas de comptabilité) ; 503 sans secret.
+- `POST /functions/v1/send-sms-hook` — hook GoTrue « Send SMS » : envoie l'OTP via SMS Bus (signature Standard Webhooks). Envoi via SMS Bus (`SMSBUS_ID` requis).
 - `POST /functions/v1/notify` — file SMS (SMS Bus) / push (FCM), protégée par `NOTIFY_CRON_TOKEN`. **Fournisseurs non connectés.**
 
 ## PaymentGateway (TypeScript)
 `collect`, `disburse`, `getStatus`, `verifyWebhook` ; `SimulationGateway` (actif), `OrangeMoneyGateway` / `MoovMoneyGateway`
-(squelette `SasPayGateway` : lève `NotConfiguredError`). Voir `apps/web/src/lib/payments/`.
+(`SasPayGateway` : implémenté d'après docs.saspay.me, inactif tant que les paiements réels sont désactivés). Voir `apps/web/src/lib/payments/`.
