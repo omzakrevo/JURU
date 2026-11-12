@@ -4,7 +4,8 @@
 | Commande | Couverture |
 |---|---|
 | `scripts/test-db.sh` | 9 migrations, seeds, `20_lifecycle.sql` (cycle complet, ledger, idempotence, retard/pénalité, régularisation, remboursement anticipé, 504 combinaisons d'échéancier, TAEG, bornes), `30_security.sql` (règles métier, immuabilité contrat/ledger/audit, déséquilibre ledger, garde-fou paiements réels, double validation, RLS par rôle, vues, Storage) |
-| `cd apps/web && npm test` | Parité TS↔SQL de l'échéancier (valeurs de référence PostgreSQL), TAEG, frais, validations, téléphone UEMOA, erreurs RPC, PaymentGateway (idempotence, HMAC, non connecté), limiteur |
+| `scripts/test-db.sh` — `40_payment_sandbox.sql` | Circuit sandbox : décaissement (échec puis reprise, versement, rejeu), remboursement (échec, succès, reversement, expiration, trop-perçu, versement échoué), droits `service_role`, garde-fous |
+| `cd apps/web && npm test` | Worker/collecte (rejeux, échecs, reprises, revérification des webhooks), parité TS↔SQL de l'échéancier (valeurs de référence PostgreSQL), TAEG, frais, validations, téléphone UEMOA, erreurs RPC, PaymentGateway (idempotence, HMAC, non connecté), limiteur |
 | `cd apps/web && npm run typecheck && npm run lint && npm run build` | Types, lint, build de toutes les routes |
 | `cd apps/mobile && flutter test` | Formats (à lancer sur une machine avec Flutter) |
 

@@ -9,3 +9,8 @@ export function getGateway(provider: Provider = 'simulation', liveEnabled = fals
   return new SasPayGateway({ allowLive: true });
 }
 export * from './gateway';
+
+/** Passerelle du MODE TEST : n'accepte QUE les clés sk_test_ (jamais de clé live, même par erreur de configuration). */
+export function getSandboxGateway(): PaymentGateway {
+  return new SasPayGateway({ allowLive: false });
+}

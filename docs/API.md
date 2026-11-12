@@ -41,6 +41,15 @@ Montants = FCFA entiers ; taux = points de base annuels (1800 = 18 %).
 | `admin_dashboard_stats()` | tout le personnel |
 | `apply_retention_policy()`, `log_kyc_document_access(p_submission)`, `set_contact_status(...)` | conformité / support |
 
+## Circuit de paiement (mode test SAS Pay) — voir docs/PAYMENTS.md
+| RPC | Appelant | Effet |
+|---|---|---|
+| `get_payment_mode(p_country)` | utilisateur | `simulation` \| `sandbox` \| `live` |
+| `begin_collection(p_purpose, p_ref, p_channel)` | prêteur (`disbursement`) / emprunteur (`repayment`) | Crée la transaction de collecte « initiated » (idempotent) ; renvoie clé d'idempotence, montant, téléphone |
+| `start_repayment_intent(p_loan_id, p_amount, p_idempotency_key, p_early_full)` | emprunteur | Valide et crée l'intention (rien n'est imputé) |
+| `apply_payment_event`, `record_gateway_response`, `record_gateway_failure`, `claim_gateway_calls`, `expire_stale_collections` | **service_role uniquement** (worker) | Machine d'états ; refusées aux utilisateurs |
+| `POST /api/payments/worker` | cron (jeton `PAYMENTS_WORKER_TOKEN`) | Webhooks → vérification → versements → expirations |
+
 ## Lecture (RLS)
 Tables lisibles selon le rôle ; vues contrôlées : `marketplace_requests` (prêteurs vérifiés, sans identité ni revenus),
 `counterparty_cards` (prénom + initiale), `ledger_balances`. Aucune écriture directe n'est possible sur

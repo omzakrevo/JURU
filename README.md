@@ -12,7 +12,7 @@ Plateforme de **mise en relation** emprunteurs ↔ prêteurs (Burkina Faso, puis
 | `supabase/` | Migrations SQL (schéma, RLS, RPC métier), seeds, tests SQL, Edge Functions |
 | `apps/web/` | Next.js 15 + TypeScript + Tailwind : site public, espace utilisateur, administration |
 | `apps/mobile/` | Flutter Android |
-| `docs/` | `ARCHITECTURE`, `INSTALL`, `DEPLOY`, `API`, `SECURITY`, `TESTS`, `TASKS` |
+| `docs/` | `ARCHITECTURE`, `INSTALL`, `DEPLOY`, `API`, `PAYMENTS`, `SECURITY`, `TESTS`, `TASKS` |
 | `scripts/` | `apply-migrations.sh` (votre VPS), `test-db.sh` (PostgreSQL local jetable) |
 
 ## Démarrage rapide

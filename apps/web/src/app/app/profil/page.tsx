@@ -25,6 +25,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ b
             <Field label="Type de compte" htmlFor="account_type"><Select id="account_type" name="account_type" defaultValue={p.account_type}><option value="individual">Personnel</option><option value="business">Professionnel</option></Select></Field>
             <Field label="Nom de l’activité (si professionnel)" htmlFor="business_name"><Input id="business_name" name="business_name" defaultValue={p.business_name ?? ''} /></Field>
           </div>
+          <Field label="Mon moyen Mobile Money (pour recevoir les versements)" htmlFor="mobile_money_channel" help="Orange Money ou Moov Money, sur le numéro de votre compte.">
+            <Select id="mobile_money_channel" name="mobile_money_channel" defaultValue={p.mobile_money_channel ?? ''}><option value="">— À choisir —</option><option value="orange_money">Orange Money</option><option value="moov_money">Moov Money</option></Select></Field>
           <fieldset className="rounded-xl border border-border p-4"><legend className="px-2 text-sm font-semibold">Mes rôles</legend>
             <label className="flex items-center gap-2 text-sm"><input type="checkbox" name="is_borrower" defaultChecked={p.is_borrower} className="h-4 w-4 accent-[rgb(var(--accent))]" /> Je peux emprunter</label>
             <label className="mt-2 flex items-center gap-2 text-sm"><input type="checkbox" name="is_lender" defaultChecked={p.is_lender} className="h-4 w-4 accent-[rgb(var(--accent))]" /> Je peux prêter</label>

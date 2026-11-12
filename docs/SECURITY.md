@@ -10,6 +10,7 @@
 - **Paiements** : clés d'idempotence uniques, `payment_webhook_events (provider,event_id)` unique, garde-fou SQL interdisant toute transaction non simulée tant que `payments_live_enabled=false`.
 - **Storage** : buckets privés, dossier = id utilisateur, MIME/taille limités, lecture KYC réservée à la conformité.
 - **Web** : en-têtes (CSP, HSTS, X-Frame-Options…), limitation de requêtes (OTP, connexion, contact, KYC), réponses d'erreur génériques (pas d'énumération), honeypot contact, export CSV protégé contre l'injection de formules, `getUser()` côté serveur, aucune clé secrète côté client.
+- **Paiements (mode test)** : clés `sk_live_` refusées par le code, fonctions de la machine d'états réservées à `service_role`, statuts revérifiés auprès du fournisseur (jamais le webhook seul), statuts terminaux non régressifs, route worker protégée par jeton (temps constant) et limitée en débit, client service_role confiné au serveur.
 - **Pas de numéro de pièce complet** stocké (4 derniers caractères uniquement).
 
 ## Limites / à faire avant production

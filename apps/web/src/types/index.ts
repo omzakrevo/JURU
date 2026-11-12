@@ -23,7 +23,7 @@ export interface Contract {
   borrower_signed_at: string | null; lender_signed_at: string | null; created_at: string;
 }
 export interface Loan {
-  id: string; loan_no: number; contract_id: string; borrower_id: string; lender_id: string; principal: number;
+  id: string; country_code: string; loan_no: number; contract_id: string; borrower_id: string; lender_id: string; principal: number;
   annual_rate_bps: number; duration_months: number; interest_total: number; fee_total: number; total_repayable: number;
   amount_repaid: number; penalties_accrued: number; penalties_paid: number; status: string; is_simulation: boolean;
   disbursed_at: string | null; first_due_date: string | null; closed_at: string | null; created_at: string;

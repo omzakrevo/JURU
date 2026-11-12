@@ -6,6 +6,9 @@ import { createClient } from '@/lib/supabase/server';
 import { formatFcfa } from '@/lib/money';
 import { formatCalendarDate, formatDateTime } from '@/lib/dates';
 import { openDispute, repay } from '@/app/actions/app';
+import { repaySandbox } from '@/app/actions/payments';
+import { ChannelFields } from '@/components/ChannelFields';
+import { AutoRefresh } from '@/components/AutoRefresh';
 import type { Loan, ScheduleRow } from '@/types';
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
@@ -21,6 +24,15 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     supabase.from('repayments').select('id,amount,kind,created_at,is_simulation').eq('loan_id', id).order('created_at', { ascending: false }),
     isBorrower && ['active', 'overdue'].includes(l.status) ? supabase.rpc('get_payoff_amount', { p_loan_id: id }) : Promise.resolve({ data: null }),
   ]);
+  const { data: modeData } = await supabase.rpc('get_payment_mode', { p_country: l.country_code });
+  const mode = (modeData as string) ?? 'simulation';
+  const sandbox = mode === 'sandbox';
+  const { data: funding } = !isBorrower && l.status === 'awaiting_disbursement'
+    ? await supabase.from('disbursements').select('id,status').eq('loan_id', id).in('status', ['awaiting_funding', 'funding_in_progress', 'paying_out']).maybeSingle()
+    : { data: null };
+  const { data: pendingIntent } = isBorrower && sandbox
+    ? await supabase.from('repayment_intents').select('id').eq('loan_id', id).eq('status', 'collecting').limit(1).maybeSingle()
+    : { data: null };
   const rows = (sched ?? []) as ScheduleRow[];
   const next = rows.find((r) => r.status !== 'paid');
   const due = (r: ScheduleRow) => r.principal_due - r.principal_paid + r.interest_due - r.interest_paid - r.interest_waived + r.penalty_due - r.penalty_paid;
@@ -28,7 +40,10 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   return (
     <>
       <PageHeader title={`Crédit n°${l.loan_no}`} subtitle={isBorrower ? 'Vous êtes l’emprunteur.' : 'Vous êtes le prêteur.'} actions={<><StatusBadge status={l.status} /><ButtonLink href={`/app/contrats/${l.contract_id}`} variant="outline" size="sm">Contrat</ButtonLink></>} />
-      {l.is_simulation && <div className="mb-4"><Alert tone="warning" title="MODE DÉMONSTRATION">Les décaissements et remboursements de ce crédit sont simulés : aucun argent réel n’est échangé.</Alert></div>}
+      {l.is_simulation && <div className="mb-4"><Alert tone="warning" title={sandbox ? 'MODE TEST SAS PAY' : 'MODE DÉMONSTRATION'}>{sandbox ? 'Les paiements passent par l’environnement de test SAS Pay : aucun argent réel n’est échangé.' : 'Les décaissements et remboursements de ce crédit sont simulés : aucun argent réel n’est échangé.'}</Alert></div>}
+      <AutoRefresh active={Boolean(pendingIntent) || funding?.status === 'paying_out'} />
+      {funding?.status === 'awaiting_funding' && <div className="mb-4"><Alert tone="info" title="Votre versement est attendu">Le décaissement a été validé : versez les fonds pour finaliser le crédit. <a className="font-semibold underline" href={`/app/financement/${funding.id}`}>Financer maintenant</a></Alert></div>}
+      {pendingIntent && <div className="mb-4"><Alert tone="info" title="Paiement en cours">Votre paiement est en attente de confirmation par l’opérateur. Rien n’est imputé tant qu’il n’est pas confirmé.</Alert></div>}
       {l.status === 'overdue' && <div className="mb-4"><Alert tone="danger" title="Retard de paiement">Des pénalités s’appliquent. Régularisez dès que possible ou ouvrez un litige.</Alert></div>}
       {l.status === 'awaiting_disbursement' && <div className="mb-4"><Alert tone="info" title="Décaissement en attente">Le décaissement requiert une double validation interne.</Alert></div>}
       <div className="grid gap-6 lg:grid-cols-2">
@@ -37,10 +52,10 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
           <div className="mt-3"><Progress value={l.amount_repaid} max={l.total_repayable} /></div></Card>
         {isBorrower && ['active', 'overdue'].includes(l.status) && next && (
           <Card><h2 className="mb-3 font-semibold">Rembourser <span className="ml-1 rounded bg-warning px-1.5 py-0.5 text-[10px] font-bold uppercase text-black">Démo</span></h2>
-            <ActionForm action={repay} submit="Payer (simulation)" variant="accent"><input type="hidden" name="loan_id" value={id} /><input type="hidden" name="key" value={key} />
+            <ActionForm action={sandbox ? repaySandbox : repay} submit={sandbox ? 'Payer (test SAS Pay)' : 'Payer (simulation)'} variant="accent"><input type="hidden" name="loan_id" value={id} /><input type="hidden" name="key" value={key} />{sandbox && <ChannelFields />}
               <Field label="Montant (FCFA)" htmlFor="amount" help={`Échéance n°${next.installment_no} : ${formatFcfa(due(next))}. Un paiement partiel est possible.`}><Input id="amount" name="amount" inputMode="numeric" defaultValue={due(next)} required /></Field></ActionForm>
             {payoff.data !== null && <div className="mt-4 border-t border-border pt-4"><p className="text-sm">Remboursement anticipé total : <strong>{formatFcfa(payoff.data as number)}</strong> <span className="text-muted">(capital restant + intérêts échus ; intérêts futurs non dus)</span></p>
-              <ActionForm action={repay} submit="Tout rembourser maintenant (simulation)" variant="outline" className="mt-3"><input type="hidden" name="loan_id" value={id} /><input type="hidden" name="key" value={crypto.randomUUID()} /><input type="hidden" name="amount" value={payoff.data as number} /><input type="hidden" name="early" value="on" /></ActionForm></div>}
+              <ActionForm action={sandbox ? repaySandbox : repay} submit={sandbox ? 'Tout rembourser (test SAS Pay)' : 'Tout rembourser maintenant (simulation)'} variant="outline" className="mt-3">{sandbox && <ChannelFields />}<input type="hidden" name="loan_id" value={id} /><input type="hidden" name="key" value={crypto.randomUUID()} /><input type="hidden" name="amount" value={payoff.data as number} /><input type="hidden" name="early" value="on" /></ActionForm></div>}
           </Card>)}
       </div>
       <h2 className="mb-3 mt-8 font-semibold">Échéancier</h2>

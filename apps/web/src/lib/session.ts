@@ -8,7 +8,7 @@ export interface Profile {
   id: string; phone: string | null; email: string | null; full_name: string | null; country_code: string;
   birth_date: string | null; city: string | null; address: string | null; account_type: string;
   business_name: string | null; kyc_status: string; is_borrower: boolean; is_lender: boolean; status: string;
-  preferred_locale: string; consent_terms_at: string | null; created_at: string;
+  preferred_locale: string; mobile_money_channel: string | null; consent_terms_at: string | null; created_at: string;
 }
 export interface SessionInfo { userId: string; profile: Profile; roles: AppRole[]; isStaff: boolean }
 

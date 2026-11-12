@@ -18,7 +18,8 @@ export async function updateProfile(_: ActionState, fd: FormData): Promise<Actio
   const { error } = await supabase.from('profiles').update({
     full_name: str(fd, 'full_name'), birth_date: birth || null, city: str(fd, 'city') || null, address: str(fd, 'address') || null,
     account_type: str(fd, 'account_type') === 'business' ? 'business' : 'individual',
-    business_name: str(fd, 'business_name') || null, is_borrower: bool(fd, 'is_borrower'), is_lender: bool(fd, 'is_lender'),
+    business_name: str(fd, 'business_name') || null,
+    mobile_money_channel: ['orange_money', 'moov_money'].includes(str(fd, 'mobile_money_channel')) ? str(fd, 'mobile_money_channel') : null, is_borrower: bool(fd, 'is_borrower'), is_lender: bool(fd, 'is_lender'),
   }).eq('id', user.id);
   if (error) return { error: 'Mise à jour impossible : ' + error.message };
   if (bool(fd, 'is_lender')) {

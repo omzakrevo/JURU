@@ -19,7 +19,9 @@
 - [ ] Déployer et tester les Edge Functions (Deno non disponible ici)
 - [ ] Validation juridique : nom JURU, CGU/confidentialité, plafond de taux (usure), signature électronique, règles AML/KYC, durées de conservation, conditions de remboursement anticipé
 - [x] `SasPayGateway` (softpay, payouts, verify, webhook signé) et webhook Edge Function — testés avec requêtes simulées ; **jamais essayés contre l'API réelle**
-- [ ] **SAS Pay — orchestration live** : file de collecte prêteur (redirection `checkout_url`, OTP Orange BF), retraits emprunteur (IP whitelistée), traitement des webhooks → revérification `verify` → mise à jour statuts + écritures comptables (frais SAS Pay `fee`/`fee_charge_mode` dans le ledger 5010), rapprochement ; essais `sk_test_` ; contrat et validation juridique avant toute activation
+- [x] **Circuit de paiement en MODE TEST SAS Pay** (voir docs/PAYMENTS.md) : collecte prêteur (checkout_url, OTP Orange), versement emprunteur, remboursement collecté puis reversé au prêteur, webhooks revérifiés, worker cron, expiration, reprises idempotentes, trop-perçus — tests SQL (`40_payment_sandbox.sql`) et TS (`flows.test.ts`) verts ; **jamais exécuté contre le sandbox SAS Pay**
+- [ ] Valider le circuit contre le sandbox SAS Pay (clé `sk_test_`), ajuster les statuts/webhooks réels ; reporter les frais SAS Pay au grand livre (5010) ; écran de traitement des `payout_failed` (restitution au prêteur) et des `mismatch`
+- [ ] **Mode live** : non implémenté volontairement (contrat SAS Pay, validation juridique, revue de sécurité, procédure DBA double validée)
 - [x] Client SMS Bus (`_shared/smsbus.ts`), hook OTP GoTrue et file `notify` — testés avec requêtes simulées ; **à essayer en réel** (format de réponse de SMS Bus à confirmer)
 - [ ] OTP de re-signature ; filtrage sanctions/PEP ; liveness/OCR KYC
 - [ ] Génération du PDF contrat côté serveur stockée dans Storage `contracts` (actuellement PDF à la volée) ; partenaires : portail dédié (rôle `partner`)
