@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+coverage/
+build/
+.dart_tool/
+supabase/.temp/
+supabase/.branches/

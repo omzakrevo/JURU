@@ -1,0 +1,161 @@
+@import '@fontsource-variable/figtree';
+@import '@fontsource/instrument-serif';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design system JURU — vert profond, émeraude, blanc cassé, bleu nuit */
+:root {
+  --bg: 243 241 234;          /* crème chaud */
+  --surface: 255 255 255;
+  --surface-2: 235 232 222;
+  --fg: 17 31 25;             /* quasi-noir vert */
+  --muted: 104 117 109;
+  --border: 226 223 212;
+  --primary: 20 69 47;        /* vert profond */
+  --primary-fg: 255 255 255;
+  --primary-soft: 222 238 227;
+  --accent: 47 191 113;       /* émeraude vif (touches, actions) */
+  --accent-soft: 222 238 227;
+  --night: 15 31 24;
+  --sun: 245 190 60;
+  --coral: 229 83 60;
+  --sky: 58 130 220;
+  --violet: 124 92 220;
+  --success: 22 128 74;
+  --warning: 176 105 0;
+  --danger: 205 45 60;
+  --info: 37 99 235;
+  --shadow: 15 31 24;
+  color-scheme: light;
+}
+[data-theme='dark'] {
+  --bg: 10 20 16;
+  --surface: 19 34 27;
+  --surface-2: 28 46 37;
+  --fg: 238 244 240;
+  --muted: 150 168 158;
+  --border: 38 58 47;
+  --primary: 94 214 150;
+  --primary-fg: 10 30 20;
+  --primary-soft: 22 58 42;
+  --accent: 47 191 113;
+  --accent-soft: 22 58 42;
+  --night: 6 14 10;
+  --sun: 250 200 80;
+  --coral: 255 120 100;
+  --sky: 100 170 250;
+  --violet: 160 135 250;
+  --success: 74 222 128;
+  --warning: 251 191 36;
+  --danger: 255 120 130;
+  --info: 110 170 255;
+  --shadow: 0 0 0;
+  color-scheme: dark;
+}
+
+html { scroll-behavior: smooth; }
+body { @apply bg-bg text-fg font-sans antialiased; -webkit-tap-highlight-color: transparent; font-variant-numeric: tabular-nums; }
+::selection { background: rgb(var(--accent) / 0.3); }
+:focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 2px; border-radius: 6px; }
+
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
+  .card { @apply rounded-2xl border border-border bg-surface; }
+  /* Tuiles : surfaces pastel calmes, icône dans une pastille blanche (inspiré des applis fintech) */
+  .tile { @apply relative flex flex-col justify-between overflow-hidden rounded-2xl p-5 text-left font-medium text-fg transition-[transform,background-color] duration-150 active:scale-[.98]; }
+  .tile > svg:first-child { box-sizing: content-box; padding: 11px; border-radius: 9999px; }
+  .tile-green, .tile-coral, .tile-sun, .tile-sky, .tile-violet { background: rgb(var(--surface)); border: 1px solid rgb(var(--border)); }
+  .tile-green > svg:first-child, .tile-coral > svg:first-child, .tile-sun > svg:first-child, .tile-sky > svg:first-child, .tile-violet > svg:first-child { color: rgb(var(--primary)); background: rgb(var(--surface-2)); }
+  .tile-night { background: #14452F; color: #fff; } .tile-night > svg:first-child { background: rgb(255 255 255 / .14); color: #fff; }
+  [data-theme='dark'] .tile > svg:first-child { background: rgb(255 255 255 / .08); }
+  /* Respiration : mouvements lents et doux (désactivés si l'utilisateur réduit les animations) */
+  .no-scrollbar { scrollbar-width: none; } .no-scrollbar::-webkit-scrollbar { display: none; }
+  .input { @apply w-full rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm text-fg placeholder:text-muted/70 transition focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 disabled:opacity-60; }
+  .label { @apply mb-1.5 block text-sm font-medium; }
+  .help { @apply mt-1 text-xs text-muted; }
+  .skeleton { @apply relative overflow-hidden rounded-lg bg-surface-2; }
+  .skeleton::after { content: ''; @apply absolute inset-0 -translate-x-full animate-shimmer bg-white/20; }
+}
+
+/* Curseurs colorés et faciles à manipuler au doigt */
+input[type='range'] { -webkit-appearance: none; appearance: none; height: 10px; border-radius: 999px; background: #DAD7CA; outline-offset: 6px; }
+input[type='range']::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 999px; background: #14452F; border: 4px solid #fff; box-shadow: 0 2px 8px rgb(15 31 24 / .35); }
+input[type='range']::-moz-range-thumb { width: 22px; height: 22px; border-radius: 999px; background: #14452F; border: 4px solid #fff; box-shadow: 0 2px 8px rgb(15 31 24 / .35); }
+
+/* ===== Présentation d'accueil (onboarding) : animations des 3 slides ===== */
+@keyframes ob-float { 0% { transform: translateY(24px) scale(.6); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(-96px) scale(1); opacity: 0; } }
+@keyframes ob-thumb { 0%, 100% { left: 6%; } 50% { left: 82%; } }
+@keyframes ob-bar { 0%, 100% { width: 6%; } 50% { width: 82%; } }
+@keyframes ob-pulse { 0%, 100% { transform: scale(1); opacity: .7; } 50% { transform: scale(1.1); opacity: 1; } }
+@keyframes ob-draw { 0% { stroke-dashoffset: var(--len, 200); } 55%, 100% { stroke-dashoffset: 0; } }
+@keyframes ob-pop { 0%, 50% { transform: scale(0); opacity: 0; } 68% { transform: scale(1.3); opacity: 1; } 82%, 100% { transform: scale(1); opacity: 1; } }
+@keyframes ob-fill { 0% { width: 0; } 70%, 100% { width: 100%; } }
+@keyframes ob-wiggle { 0%, 55%, 100% { transform: rotate(0); } 60% { transform: rotate(16deg); } 66% { transform: rotate(-14deg); } 72% { transform: rotate(10deg); } 78% { transform: rotate(-6deg); } 84% { transform: rotate(0); } }
+@keyframes ob-slide-in { 0%, 8% { transform: translateY(-28px); opacity: 0; } 22%, 86% { transform: none; opacity: 1; } 100% { transform: translateY(-28px); opacity: 0; } }
+@keyframes ob-rise { 0% { transform: translateY(18px); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@keyframes ob-ripple { 0% { transform: translate(-50%, -50%) scale(0); opacity: .45; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 0; } }
+@keyframes ob-tap { 0% { transform: scale(1); } 35% { transform: scale(1.08) rotate(-1.5deg); } 100% { transform: scale(1); } }
+
+.ob-rise { animation: ob-rise .6s cubic-bezier(.2, .8, .2, 1) both; }
+.ob-tap { animation: ob-tap .5s ease-out; }
+.ob-ripple { position: absolute; width: 380px; height: 380px; border-radius: 9999px; background: rgb(191 232 207 / .18); pointer-events: none; animation: ob-ripple .8s ease-out forwards; }
+/* Les animations ne tournent que sur la slide visible (la classe .play est posée dessus) */
+.play .ob-float { animation: ob-float 3.2s ease-out infinite; }
+.play .ob-thumb { animation: ob-thumb 4s ease-in-out infinite; }
+.play .ob-bar { animation: ob-bar 4s ease-in-out infinite; }
+.play .ob-pulse { animation: ob-pulse 2.4s ease-in-out infinite; }
+.play .ob-draw { stroke-dasharray: var(--len, 200); animation: ob-draw 4.5s ease-in-out infinite; }
+.play .ob-pop { animation: ob-pop 4.5s ease-out infinite; }
+.play .ob-fill { animation: ob-fill 5s ease-in-out infinite; }
+.play .ob-wiggle { transform-origin: 50% 0; animation: ob-wiggle 5s ease-in-out infinite; }
+.play .ob-slide-in { animation: ob-slide-in 5s ease-in-out infinite; }
+
+
+/* ===== Scènes d'accroche (entrepreneurs) ===== */
+@keyframes ob-ghost { 0%, 36% { opacity: 1; } 46%, 92% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes ob-item { 0%, 40% { opacity: 0; transform: scale(.4); } 52% { opacity: 1; transform: scale(1.22); } 62%, 92% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(.9); } }
+@keyframes ob-drop { 0%, 8% { opacity: 0; transform: translateY(-70px) scale(.7); } 22% { opacity: 1; } 42% { opacity: 1; transform: translateY(0) scale(1); } 50%, 100% { opacity: 0; transform: translateY(6px) scale(.6); } }
+@keyframes ob-chip { 0% { opacity: 0; transform: translateY(-14px); } 8%, 90% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-8px); } }
+@keyframes ob-in1 { 0%, 4% { opacity: 0; transform: translateX(-46px); } 14%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateX(-46px); } }
+@keyframes ob-in2 { 0%, 16% { opacity: 0; transform: translateX(46px); } 26%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateX(46px); } }
+@keyframes ob-in3 { 0%, 28% { opacity: 0; transform: translateX(-46px); } 38%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateX(-46px); } }
+@keyframes ob-pick { 0%, 46% { transform: scale(1); box-shadow: 0 0 0 0 rgb(47 191 113 / 0); } 54%, 90% { transform: scale(1.05); box-shadow: 0 0 0 4px #2FBF71, 0 16px 30px -12px rgb(47 191 113 / .8); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgb(47 191 113 / 0); } }
+@keyframes ob-dim { 0%, 48% { opacity: 1; } 56%, 90% { opacity: .38; } 100% { opacity: 1; } }
+@keyframes ob-late { 0%, 58% { opacity: 0; transform: scale(.7); } 66%, 90% { opacity: 1; transform: scale(1); } 100% { opacity: 0; } }
+@keyframes ob-n1 { 0%, 26% { transform: scale(.55); background-color: rgb(255 255 255 / .18); } 31% { transform: scale(1.3); } 38%, 94% { transform: scale(1); background-color: #2FBF71; } 100% { transform: scale(.55); background-color: rgb(255 255 255 / .18); } }
+@keyframes ob-n2 { 0%, 54% { transform: scale(.55); background-color: rgb(255 255 255 / .18); } 59% { transform: scale(1.3); } 66%, 94% { transform: scale(1); background-color: #2FBF71; } 100% { transform: scale(.55); background-color: rgb(255 255 255 / .18); } }
+@keyframes ob-n3 { 0%, 84% { transform: scale(.55); background-color: rgb(255 255 255 / .18); } 89% { transform: scale(1.35); } 95%, 98% { transform: scale(1); background-color: #F4C84A; } 100% { transform: scale(.55); background-color: rgb(255 255 255 / .18); } }
+@keyframes ob-line { 0%, 4% { width: 0; } 86%, 100% { width: 100%; } }
+@keyframes ob-bell { 0%, 40% { opacity: 0; transform: translateY(8px); } 46%, 56% { opacity: 1; transform: none; } 62%, 100% { opacity: 0; } }
+@keyframes ob-done { 0%, 84% { opacity: 0; transform: scale(.6); } 92%, 97% { opacity: 1; transform: scale(1); } 100% { opacity: 0; } }
+.play .ob-ghost { animation: ob-ghost 6s ease-in-out infinite; }
+.play .ob-item { animation: ob-item 6s ease-out infinite; }
+.play .ob-drop { animation: ob-drop 6s ease-in infinite; }
+.play .ob-chip { animation: ob-chip 6s ease-in-out infinite; }
+.play .ob-in1 { animation: ob-in1 7s ease-out infinite; } .play .ob-in2 { animation: ob-in2 7s ease-out infinite; } .play .ob-in3 { animation: ob-in3 7s ease-out infinite; }
+.play .ob-pick { animation: ob-pick 7s ease-in-out infinite; } .play .ob-dim { animation: ob-dim 7s ease-in-out infinite; } .play .ob-late { animation: ob-late 7s ease-out infinite; }
+.play .ob-n1 { animation: ob-n1 6s ease-out infinite; } .play .ob-n2 { animation: ob-n2 6s ease-out infinite; } .play .ob-n3 { animation: ob-n3 6s ease-out infinite; }
+.play .ob-line { animation: ob-line 6s ease-in-out infinite; } .play .ob-bell { animation: ob-bell 6s ease-in-out infinite; } .play .ob-done { animation: ob-done 6s ease-out infinite; }
+
+/* ===== Connexion : champs en relief, bouton en dégradé, décor animé ===== */
+@keyframes fx-pop { 0% { transform: scale(.7); } 60% { transform: scale(1.12); } 100% { transform: scale(1); } }
+.ob-pop-once { animation: fx-pop .3s ease-out; }
+.field-lg { display: flex; align-items: center; gap: .75rem; height: 60px; padding: 0 1rem; border-radius: 12px; border: 1px solid rgb(var(--fg) / .14);
+  background: rgb(var(--surface)); transition: border-color .15s cubic-bezier(.22,1,.36,1), box-shadow .15s cubic-bezier(.22,1,.36,1); }
+.field-lg:focus-within { border-color: rgb(var(--primary)); box-shadow: 0 0 0 3px rgb(var(--primary) / .14); }
+.field-lg input { width: 100%; background: transparent; outline: none; font-size: 1.25rem; font-weight: 500; color: rgb(var(--fg)); }
+.field-lg input::placeholder { color: rgb(var(--muted) / .6); font-weight: 400; }
+.field-lg svg { color: rgb(var(--muted)); flex-shrink: 0; }
+.btn-hero { width: 100%; height: 56px; border-radius: 12px; font-size: 1.0625rem; font-weight: 500; color: #fff; background: #14452F; transition: transform .15s cubic-bezier(.22,1,.36,1), background-color .15s; }
+.btn-hero:hover { background: #1B5A3D; }
+.btn-hero:active { transform: scale(.98); }
+.btn-hero:disabled { opacity: .6; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}
+
+/* Titres : serif d'édition pour les grands titres seulement */
+.display { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; }
