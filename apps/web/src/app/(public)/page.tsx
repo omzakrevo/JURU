@@ -2,6 +2,7 @@ import { ArrowRight, BadgeCheck, FileSignature, HandCoins, Lock, ScanFace, Searc
 import { ButtonLink, Card } from '@/components/ui';
 import { Simulator } from '@/components/public/Simulator';
 import { MobileHome } from '@/components/public/MobileHome';
+import { Onboarding } from '@/components/public/Onboarding';
 
 const steps = [
   { icon: ScanFace, t: '1. Vérifiez votre identité', d: 'Inscription par téléphone et code OTP, puis KYC : pièce d’identité et selfie, examinés avec soin.' },
@@ -13,6 +14,7 @@ const steps = [
 export default function HomePage() {
   return (
     <>
+      <Onboarding />
       <MobileHome />
       <div className="hidden lg:block">
       <section className="relative overflow-hidden">

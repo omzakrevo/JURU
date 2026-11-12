@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ReplayIntro } from '@/components/public/ReplayIntro';
 import { BookOpen, FileText, HandCoins, Lock, Mail, Receipt, Briefcase, ShieldCheck, Route } from 'lucide-react';
 
 export const metadata: Metadata = { title: 'Plus' };
@@ -15,7 +16,7 @@ export default function Page() {
       <h1 className="mb-3 flex items-center gap-2 text-xl font-extrabold lg:text-3xl"><BookOpen className="h-6 w-6 text-primary" />Plus</h1>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {T.map((x) => <Link key={x.href} href={x.href} className={`tile ${x.cls} aspect-[4/3]`}><x.icon className="h-7 w-7" strokeWidth={2.2} /><span className="text-base font-extrabold leading-tight">{x.t}</span></Link>)}
-      </div>
+      <ReplayIntro /></div>
     </div>
   );
 }
