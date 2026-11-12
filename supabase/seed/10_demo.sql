@@ -1,11 +1,11 @@
 -- =============================================================================
--- KREDIA — Données de DÉMONSTRATION FICTIVES (développement uniquement)
--- Garde-fou : exécuter avec  set kredia.allow_demo = 'on';  (jamais en production)
+-- JURU — Données de DÉMONSTRATION FICTIVES (développement uniquement)
+-- Garde-fou : exécuter avec  set juru.allow_demo = 'on';  (jamais en production)
 -- Tous les noms, numéros et montants sont inventés. Mot de passe démo : voir DEMO_PASSWORD ci-dessous.
 -- =============================================================================
 do $$ begin
-  if coalesce(current_setting('kredia.allow_demo', true), '') <> 'on' then
-    raise exception 'Seed démo refusé : exécutez  set kredia.allow_demo = ''on'';  (environnement NON production uniquement)';
+  if coalesce(current_setting('juru.allow_demo', true), '') <> 'on' then
+    raise exception 'Seed démo refusé : exécutez  set juru.allow_demo = ''on'';  (environnement NON production uniquement)';
   end if;
 end $$;
 
@@ -21,7 +21,7 @@ begin
   insert into auth.users(id, instance_id, aud, role, email, encrypted_password, email_confirmed_at, phone, phone_confirmed_at,
       raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token, recovery_token, email_change_token_new, email_change)
   values (p_id, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', p_email,
-      extensions.crypt('Kredia#Demo2026', extensions.gen_salt('bf')), now(), p_phone, now(),
+      extensions.crypt('Juru#Demo2026', extensions.gen_salt('bf')), now(), p_phone, now(),
       '{"provider":"email","providers":["email"]}', jsonb_build_object('full_name', p_name, 'country_code', 'BF'), now(), now(), '', '', '', '');
   insert into auth.identities(user_id, provider_id, provider, identity_data, last_sign_in_at)
   values (p_id, p_id::text, 'email', jsonb_build_object('sub', p_id::text, 'email', p_email), now());
@@ -29,21 +29,21 @@ begin
 end $$;
 
 -- ---------- Personnel (fictif) -------------------------------------------------
-select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a1','admin@kredia.demo',  '+22600000001','Admin Démo Un',        'super_admin');
-select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a2','admin2@kredia.demo', '+22600000002','Admin Démo Deux',      'super_admin');
-select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a3','conformite@kredia.demo','+22600000003','Conformité Démo',   'compliance_officer');
-select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a4','credit@kredia.demo', '+22600000004','Agent Crédit Démo',    'credit_agent');
-select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a5','finance@kredia.demo','+22600000005','Responsable Finance Démo','finance_manager');
-select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a6','support@kredia.demo','+22600000006','Support Démo',        'support');
-select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a7','audit@kredia.demo',  '+22600000007','Auditeur Démo',        'auditor');
-select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a8','compta@kredia.demo', '+22600000008','Comptable Démo',       'accountant');
+select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a1','admin@juru.demo',  '+22600000001','Admin Démo Un',        'super_admin');
+select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a2','admin2@juru.demo', '+22600000002','Admin Démo Deux',      'super_admin');
+select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a3','conformite@juru.demo','+22600000003','Conformité Démo',   'compliance_officer');
+select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a4','credit@juru.demo', '+22600000004','Agent Crédit Démo',    'credit_agent');
+select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a5','finance@juru.demo','+22600000005','Responsable Finance Démo','finance_manager');
+select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a6','support@juru.demo','+22600000006','Support Démo',        'support');
+select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a7','audit@juru.demo',  '+22600000007','Auditeur Démo',        'auditor');
+select pg_temp.mk_user('00000000-0000-4000-8000-0000000000a8','compta@juru.demo', '+22600000008','Comptable Démo',       'accountant');
 
 -- ---------- Utilisateurs (fictifs) --------------------------------------------
-select pg_temp.mk_user('00000000-0000-4000-8000-0000000000b1','awa@kredia.demo',       '+22600000011','Awa Démo Ouédraogo');
-select pg_temp.mk_user('00000000-0000-4000-8000-0000000000b2','issouf@kredia.demo',    '+22600000012','Issouf Démo Traoré');
-select pg_temp.mk_user('00000000-0000-4000-8000-0000000000b3','fatimata@kredia.demo',  '+22600000013','Fatimata Démo Sawadogo');
-select pg_temp.mk_user('00000000-0000-4000-8000-0000000000b4','boukary@kredia.demo',   '+22600000014','Boukary Démo Zongo');
-select pg_temp.mk_user('00000000-0000-4000-8000-0000000000b5','salimata@kredia.demo',  '+22600000015','Salimata Démo Compaoré');
+select pg_temp.mk_user('00000000-0000-4000-8000-0000000000b1','awa@juru.demo',       '+22600000011','Awa Démo Ouédraogo');
+select pg_temp.mk_user('00000000-0000-4000-8000-0000000000b2','issouf@juru.demo',    '+22600000012','Issouf Démo Traoré');
+select pg_temp.mk_user('00000000-0000-4000-8000-0000000000b3','fatimata@juru.demo',  '+22600000013','Fatimata Démo Sawadogo');
+select pg_temp.mk_user('00000000-0000-4000-8000-0000000000b4','boukary@juru.demo',   '+22600000014','Boukary Démo Zongo');
+select pg_temp.mk_user('00000000-0000-4000-8000-0000000000b5','salimata@juru.demo',  '+22600000015','Salimata Démo Compaoré');
 
 update profiles set birth_date = '1992-04-12', city = 'Ouagadougou', is_borrower = true,  is_lender = false, consent_terms_at = now(), consent_privacy_at = now() where id = '00000000-0000-4000-8000-0000000000b1';
 update profiles set birth_date = '1995-09-30', city = 'Bobo-Dioulasso', is_borrower = true, is_lender = false, consent_terms_at = now(), consent_privacy_at = now() where id = '00000000-0000-4000-8000-0000000000b2';

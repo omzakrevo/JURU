@@ -22,7 +22,7 @@ export function Header({ loggedIn }: { loggedIn: boolean }) {
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-bg/85 backdrop-blur-md">
       <div className="container-x flex h-16 items-center justify-between gap-4">
-        <Link href="/" aria-label="KREDIA — accueil"><Logo /></Link>
+        <Link href="/" aria-label="JURU — accueil"><Logo /></Link>
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigation principale">
           {NAV.map((n) => (
             <Link key={n.href} href={n.href}

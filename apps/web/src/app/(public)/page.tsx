@@ -23,7 +23,7 @@ export default function HomePage() {
               Le financement,<br /><span className="text-primary">en toute confiance.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted">
-              KREDIA met en relation emprunteurs et prêteurs vérifiés, avec des partenaires financiers réglementés.
+              JURU met en relation emprunteurs et prêteurs vérifiés, avec des partenaires financiers réglementés.
               De 5&nbsp;000 à 500&nbsp;000&nbsp;FCFA, un coût total toujours affiché, jamais de commission cachée.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -85,7 +85,7 @@ export default function HomePage() {
         <div className="grid gap-4 rounded-3xl bg-night p-8 text-white md:grid-cols-3">
           {[{ i: Lock, t: 'Données chiffrées', d: 'Documents KYC en stockage privé, accès strictement contrôlé et journalisé.' },
             { i: Smartphone, t: 'Mobile Money (à venir)', d: 'Orange Money et Moov Money, uniquement après contractualisation et accès aux API officielles.' },
-            { i: ShieldCheck, t: 'Partenaires réglementés', d: 'KREDIA n’est pas une banque : les fonds transitent par des partenaires autorisés.' }].map((x) => (
+            { i: ShieldCheck, t: 'Partenaires réglementés', d: 'JURU n’est pas une banque : les fonds transitent par des partenaires autorisés.' }].map((x) => (
             <div key={x.t}><x.i className="h-6 w-6 text-accent" /><h3 className="mt-3 font-semibold">{x.t}</h3><p className="mt-1 text-sm text-white/70">{x.d}</p></div>
           ))}
         </div>

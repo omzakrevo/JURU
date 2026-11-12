@@ -13,7 +13,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
   return (
     <div className="animate-fade-up">
       <h1 className="text-3xl font-extrabold tracking-tight">Connexion</h1>
-      <p className="mt-1 text-sm text-muted">{staff ? 'Accès réservé à l’équipe KREDIA.' : 'Recevez un code par SMS pour vous connecter.'}</p>
+      <p className="mt-1 text-sm text-muted">{staff ? 'Accès réservé à l’équipe JURU.' : 'Recevez un code par SMS pour vous connecter.'}</p>
       {!isSupabaseConfigured() && <div className="mt-4"><Alert tone="warning" title="Serveur non configuré">Renseignez les variables Supabase (voir docs/INSTALL.md).</Alert></div>}
       {sp.error === 'suspended' && <div className="mt-4"><Alert tone="danger">Votre compte est suspendu. Contactez le support.</Alert></div>}
       <div className="mt-6 inline-flex rounded-full bg-surface-2 p-1 text-sm font-semibold" role="tablist">

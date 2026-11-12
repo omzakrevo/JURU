@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Hero, Section } from '@/components/public/Sections';
 
-export const metadata: Metadata = { title: 'FAQ', description: 'Réponses aux questions fréquentes sur KREDIA.' };
+export const metadata: Metadata = { title: 'FAQ', description: 'Réponses aux questions fréquentes sur JURU.' };
 const faq = [
-  ['KREDIA est-elle une banque ?', 'Non. KREDIA est une plateforme de mise en relation. Elle n’est pas un établissement financier agréé et travaille avec des partenaires financiers réglementés.'],
-  ['KREDIA détient-elle mon argent ?', 'Non. Les fonds ne sont jamais conservés sur un compte ordinaire de l’entreprise : les flux sont prévus via des partenaires autorisés.'],
+  ['JURU est-elle une banque ?', 'Non. JURU est une plateforme de mise en relation. Elle n’est pas un établissement financier agréé et travaille avec des partenaires financiers réglementés.'],
+  ['JURU détient-elle mon argent ?', 'Non. Les fonds ne sont jamais conservés sur un compte ordinaire de l’entreprise : les flux sont prévus via des partenaires autorisés.'],
   ['Peut-on déjà emprunter ou prêter de l’argent réel ?', 'Pas encore. Aucun paiement réel n’est activé avant validation juridique, réglementaire, contractuelle et technique. La plateforme est en mode démonstration.'],
   ['Quels montants et durées ?', 'De 5 000 à 500 000 FCFA, sur 1 à 12 mois au lancement (paramètres définis par pays).'],
   ['Quels moyens de paiement ?', 'Orange Money et Moov Money sont envisagés, uniquement après contractualisation et accès aux API officielles.'],

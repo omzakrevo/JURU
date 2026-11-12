@@ -1,5 +1,5 @@
-name: kredia
-description: KREDIA — application Android (emprunteurs et prêteurs). Mode démonstration par défaut.
+name: juru
+description: JURU — application Android (emprunteurs et prêteurs). Mode démonstration par défaut.
 publish_to: 'none'
 version: 0.1.0+1
 

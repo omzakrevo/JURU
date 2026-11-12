@@ -2,18 +2,15 @@
  * Edge Function — envoi des notifications SMS / push en file d'attente (table notifications).
  * À planifier toutes les minutes (pg_cron + pg_net, ou cron du VPS) avec l'en-tête Authorization: Bearer <NOTIFY_CRON_TOKEN>.
  *
- * ÉTAT : les fournisseurs ne sont PAS connectés. Les adaptateurs ci-dessous lèvent « non configuré » ;
+ * ÉTAT : les fournisseurs ne sont PAS connectés. Les adaptateurs lèvent « non configuré » ;
  * les notifications restent « pending » (réessai) puis passent « failed » après 5 tentatives.
- * À brancher : fournisseur SMS (clé en variable serveur SMS_API_KEY…) et Firebase Cloud Messaging (compte de service).
+ * SMS : adaptateur SMS Bus (`_shared/smsbus.ts`, à compléter d'après sa doc). Push : Firebase Cloud Messaging (compte de service).
  */
 import { createClient } from 'jsr:@supabase/supabase-js@2';
+import { sendSms } from '../_shared/smsbus.ts';
 
 interface Notif { id: string; user_id: string; channel: 'sms' | 'push'; title: string; body: string; attempts: number }
 
-async function sendSms(_phone: string, _text: string): Promise<void> {
-  if (!Deno.env.get('SMS_API_KEY')) throw new Error('SMS_PROVIDER_NOT_CONFIGURED');
-  throw new Error('SMS_PROVIDER_NOT_IMPLEMENTED'); // implémenter selon la documentation du fournisseur retenu
-}
 async function sendPush(_tokens: string[], _title: string, _body: string): Promise<void> {
   if (!Deno.env.get('FCM_PROJECT_ID')) throw new Error('FCM_NOT_CONFIGURED');
   throw new Error('FCM_NOT_IMPLEMENTED'); // FCM HTTP v1 : jeton OAuth2 du compte de service

@@ -24,9 +24,9 @@ export default function Page() {
           </ActionForm>
         </Card>
         <Card className="h-fit text-sm"><h2 className="font-semibold">Informations</h2>
-          <p className="mt-2 text-muted">KREDIA — plateforme de mise en relation. Burkina Faso.</p>
+          <p className="mt-2 text-muted">JURU — plateforme de mise en relation. Burkina Faso.</p>
           <p className="mt-3 text-muted">Pour une réclamation sur un contrat, ouvrez un litige depuis votre espace (« Mes crédits »).</p>
-          <p className="mt-3 text-xs text-muted">Ne transmettez jamais votre code OTP ni de mot de passe : l’équipe KREDIA ne vous les demandera jamais.</p></Card>
+          <p className="mt-3 text-xs text-muted">Ne transmettez jamais votre code OTP ni de mot de passe : l’équipe JURU ne vous les demandera jamais.</p></Card>
       </Section>
     </>
   );

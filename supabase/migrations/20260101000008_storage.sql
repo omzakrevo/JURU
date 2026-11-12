@@ -1,5 +1,5 @@
 -- =============================================================================
--- KREDIA — 0008 Storage privé : documents KYC et contrats
+-- JURU — 0008 Storage privé : documents KYC et contrats
 -- Chemin imposé : {user_id}/... ; aucun accès public ; lecture personnel conformité uniquement.
 -- =============================================================================
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)

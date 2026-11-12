@@ -38,7 +38,7 @@ export function Simulator({ compact }: { compact?: boolean }) {
               <p className="text-sm text-white/70">Mensualité estimée</p>
               <p className="text-3xl font-extrabold text-accent">{formatFcfa(q.monthly_payment)}</p>
               <dl className="mt-4 space-y-2 text-sm">
-                {[['Intérêts', formatFcfa(q.interest_total)], ['Commission KREDIA (unique)', formatFcfa(q.fee_total)], ['Coût total du crédit', formatFcfa(q.total_cost)],
+                {[['Intérêts', formatFcfa(q.interest_total)], ['Commission JURU (unique)', formatFcfa(q.fee_total)], ['Coût total du crédit', formatFcfa(q.total_cost)],
                   ['Total à rembourser', formatFcfa(q.total_repayable)], ['Net reçu', formatFcfa(q.net_disbursed)], ['TAEG indicatif', formatBps(q.effective_annual_rate_bps)]].map(([k, v]) => (
                   <div key={k} className="flex justify-between gap-3 border-b border-white/10 pb-1.5"><dt className="text-white/70">{k}</dt><dd className="font-semibold">{v}</dd></div>
                 ))}

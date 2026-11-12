@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Design system KREDIA — vert profond, émeraude, blanc cassé, bleu nuit */
+/* Design system JURU — vert profond, émeraude, blanc cassé, bleu nuit */
 :root {
   --bg: 247 245 239;          /* blanc cassé */
   --surface: 255 255 255;

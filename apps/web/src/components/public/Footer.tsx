@@ -26,9 +26,9 @@ export function Footer() {
       </div>
       <div className="border-t border-white/10">
         <p className="container-x py-6 text-xs leading-relaxed text-white/60">
-          KREDIA est une plateforme de mise en relation entre emprunteurs et prêteurs. KREDIA n’est pas un établissement financier agréé
+          JURU est une plateforme de mise en relation entre emprunteurs et prêteurs. JURU n’est pas un établissement financier agréé
           et ne conserve pas les fonds des utilisateurs sur un compte ordinaire : les flux transitent par des partenaires autorisés.
-          Emprunter engage et doit être remboursé. Le nom « KREDIA » est provisoire. © {new Date().getFullYear()} KREDIA.
+          Emprunter engage et doit être remboursé. Le nom « JURU » est provisoire. © {new Date().getFullYear()} JURU.
         </p>
       </div>
     </footer>

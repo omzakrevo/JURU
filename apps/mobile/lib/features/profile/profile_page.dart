@@ -39,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
             SwitchListTile(title: const Text('Je peux emprunter'), value: p['is_borrower'] as bool, onChanged: (v) => _toggle('is_borrower', v)),
             SwitchListTile(title: const Text('Je peux prêter'), subtitle: const Text("Complétez l'origine des fonds sur le site web."), value: p['is_lender'] as bool, onChanged: (v) => _toggle('is_lender', v)),
             const SizedBox(height: 16),
-            const Text("KREDIA est une plateforme de mise en relation, pas un établissement financier agréé. Les fonds ne sont jamais conservés sur un compte ordinaire.", style: TextStyle(fontSize: 12)),
+            const Text("JURU est une plateforme de mise en relation, pas un établissement financier agréé. Les fonds ne sont jamais conservés sur un compte ordinaire.", style: TextStyle(fontSize: 12)),
             const SizedBox(height: 16),
             OutlinedButton(onPressed: () => db.auth.signOut(), child: const Text('Déconnexion')),
           ]);

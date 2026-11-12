@@ -1,5 +1,5 @@
 -- =============================================================================
--- KREDIA — Données de référence (sûres en production)
+-- JURU — Données de référence (sûres en production)
 -- Les valeurs réglementaires (plafonds de taux, durées de conservation) sont des PLACEHOLDERS
 -- à faire valider par un conseil juridique avant ouverture au public.
 -- =============================================================================
@@ -15,7 +15,7 @@ insert into countries(code, name, currency, dial_code, timezone, is_launched) va
 on conflict (code) do nothing;
 
 insert into country_settings(country_code, display_timezone, legal_notice)
-select code, timezone, 'KREDIA est une plateforme de mise en relation. Ce n''est pas un établissement financier agréé. MODE DÉMONSTRATION : aucun fonds réel.'
+select code, timezone, 'JURU est une plateforme de mise en relation. Ce n''est pas un établissement financier agréé. MODE DÉMONSTRATION : aucun fonds réel.'
 from countries on conflict (country_code) do nothing;
 
 -- Commission de mise en relation (visible, unique, incluse dans le coût total) : 2 % min 500 FCFA, max 10 000 FCFA
@@ -26,7 +26,7 @@ from countries on conflict do nothing;
 
 -- Plan de comptes système
 insert into ledger_accounts(code, name, type, normal_side, description) values
-  ('1010','Fonds en transit chez le partenaire','asset','debit','Fonds détenus par le partenaire autorisé — jamais sur un compte ordinaire KREDIA'),
+  ('1010','Fonds en transit chez le partenaire','asset','debit','Fonds détenus par le partenaire autorisé — jamais sur un compte ordinaire JURU'),
   ('2100','Fonds des prêteurs détenus','liability','credit','Dettes de restitution/reversement envers les prêteurs'),
   ('4010','Commissions de mise en relation','revenue','credit','Commission d''origination'),
   ('4020','Pénalités de retard','revenue','credit','Pénalités contractuelles de retard'),

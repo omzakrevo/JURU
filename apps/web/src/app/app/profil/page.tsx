@@ -13,7 +13,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ b
   return (
     <>
       <PageHeader title="Mon profil" subtitle="Complétez votre profil avant la vérification d’identité (nom et date de naissance obligatoires)." actions={<StatusBadge status={p.kyc_status} />} />
-      {sp.bienvenue && <div className="mb-4"><Alert tone="success" title="Bienvenue sur KREDIA !">Complétez votre profil puis lancez la vérification d’identité.</Alert></div>}
+      {sp.bienvenue && <div className="mb-4"><Alert tone="success" title="Bienvenue sur JURU !">Complétez votre profil puis lancez la vérification d’identité.</Alert></div>}
       <Card>
         <ActionForm action={updateProfile} submit="Enregistrer">
           <div className="grid gap-4 sm:grid-cols-2">

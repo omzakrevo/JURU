@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
           Expanded(
             child: ListView(padding: const EdgeInsets.all(24), children: [
               const SizedBox(height: 24),
-              Text('KREDIA', style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w900)),
+              Text('JURU', style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w900)),
               const Text('Le financement, en toute confiance.'),
               const SizedBox(height: 32),
               SegmentedButton<bool>(

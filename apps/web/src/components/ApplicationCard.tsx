@@ -22,7 +22,7 @@ export function ApplicationCard({ a, lenderName, canRespond }: { a: Application;
       <dl className="mt-3">
         <KV label="Mensualité">{formatFcfa(q.monthly_payment)}</KV>
         <KV label="Intérêts totaux">{formatFcfa(q.interest_total)}</KV>
-        <KV label="Commission KREDIA (unique, prélevée au décaissement)">{formatFcfa(q.fee_total)}</KV>
+        <KV label="Commission JURU (unique, prélevée au décaissement)">{formatFcfa(q.fee_total)}</KV>
         <KV label="Montant net reçu">{formatFcfa(q.net_disbursed)}</KV>
         <KV label="Total à rembourser">{formatFcfa(q.total_repayable)}</KV>
         <KV label={<strong>Coût total du crédit</strong>}><strong>{formatFcfa(a.total_cost)}</strong></KV>

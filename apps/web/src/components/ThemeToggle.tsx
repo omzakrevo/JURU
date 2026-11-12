@@ -9,7 +9,7 @@ export function ThemeToggle() {
     const next = !dark;
     setDark(next);
     document.documentElement.dataset.theme = next ? 'dark' : 'light';
-    try { localStorage.setItem('kredia-theme', next ? 'dark' : 'light'); } catch { /* stockage indisponible */ }
+    try { localStorage.setItem('juru-theme', next ? 'dark' : 'light'); } catch { /* stockage indisponible */ }
   };
   return (
     <button onClick={toggle} aria-label={dark ? 'Activer le mode clair' : 'Activer le mode sombre'} title="Thème"

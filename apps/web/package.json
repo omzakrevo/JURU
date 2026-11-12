@@ -1,8 +1,8 @@
 {
-  "name": "kredia-web",
+  "name": "juru-web",
   "version": "0.1.0",
   "private": true,
-  "description": "KREDIA — site public, application utilisateur et administration",
+  "description": "JURU — site public, application utilisateur et administration",
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",

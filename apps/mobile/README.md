@@ -1,4 +1,4 @@
-# KREDIA — application Android (Flutter)
+# JURU — application Android (Flutter)
 
 > **Non compilée dans l'environnement de génération** (SDK Flutter absent). Le code est écrit pour
 > `supabase_flutter ^2.8` / Flutter ≥ 3.27 : exécutez `flutter analyze` et `flutter test` avant toute chose.
@@ -7,7 +7,7 @@
 Ce dépôt ne contient que `lib/`, `test/` et `pubspec.yaml`. Générez le projet Android :
 ```bash
 cd apps/mobile
-flutter create --platforms=android --org com.kredia --project-name kredia .
+flutter create --platforms=android --org com.juru --project-name juru .
 flutter pub get
 ```
 Dans `android/app/src/main/AndroidManifest.xml` ajoutez les permissions `INTERNET` et `CAMERA`.

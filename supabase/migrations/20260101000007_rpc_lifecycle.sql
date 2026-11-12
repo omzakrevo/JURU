@@ -1,5 +1,5 @@
 -- =============================================================================
--- KREDIA — 0007 RPC métier (2/2) : propositions, contrats, décaissement, remboursement, admin
+-- JURU — 0007 RPC métier (2/2) : propositions, contrats, décaissement, remboursement, admin
 -- MODE DÉMONSTRATION : tant que payments_live_enabled = false, tout flux d'argent est simulé.
 -- =============================================================================
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Design system KREDIA : vert profond, émeraude, blanc cassé, bleu nuit.
+/// Design system JURU : vert profond, émeraude, blanc cassé, bleu nuit.
 class K {
   static const deepGreen = Color(0xFF0B4D3A);
   static const emerald = Color(0xFF10B981);

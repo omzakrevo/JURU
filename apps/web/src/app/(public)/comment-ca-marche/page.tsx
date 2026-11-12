@@ -3,7 +3,7 @@ import { Card } from '@/components/ui';
 import { CtaBand, Hero, Section } from '@/components/public/Sections';
 import { ButtonLink } from '@/components/ui';
 
-export const metadata: Metadata = { title: 'Comment ça marche', description: 'De l’inscription au remboursement : le parcours KREDIA en 8 étapes, avec validation hybride et double validation des décaissements.' };
+export const metadata: Metadata = { title: 'Comment ça marche', description: 'De l’inscription au remboursement : le parcours JURU en 8 étapes, avec validation hybride et double validation des décaissements.' };
 
 const steps = [
   ['Inscription', 'Numéro de téléphone + code OTP. Vous pouvez être emprunteur et prêteur avec le même compte.'],

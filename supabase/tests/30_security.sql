@@ -101,7 +101,7 @@ select t.expect_error('select review_kyc(gen_random_uuid(), ''approved'')', 'FOR
 -- Garde-fou paiements réels + immuabilité (rôle postgres)
 select set_config('request.jwt.claims', '', false);
 select t.expect_error($$insert into payment_transactions(type, provider, amount, country_code, idempotency_key, is_simulation)
-   values ('collection','orange_money',1000,'BF','live-1',false)$$, 'PAIEMENTS RÉELS DÉSACTIVÉS');
+   values ('collection','sas_pay',1000,'BF','live-1',false)$$, 'PAIEMENTS RÉELS DÉSACTIVÉS');
 select t.expect_error($$insert into payment_transactions(type, provider, amount, country_code, idempotency_key, is_simulation)
    values ('collection','simulation',1000,'BF','sim-x',false)$$, 'DÉSACTIVÉS');
 select t.expect_error($$update ledger_entries set debit = debit + 1$$, 'immuable');

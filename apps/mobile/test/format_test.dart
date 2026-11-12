@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kredia/core/format.dart';
+import 'package:juru/core/format.dart';
 
 void main() {
   test('formatFcfa', () {

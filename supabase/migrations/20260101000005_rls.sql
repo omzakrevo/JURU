@@ -1,5 +1,5 @@
 -- =============================================================================
--- KREDIA — 0005 Row Level Security, privilèges minimaux, vues contrôlées
+-- JURU — 0005 Row Level Security, privilèges minimaux, vues contrôlées
 -- Principe : lecture filtrée par RLS ; ÉCRITURE sensible uniquement via RPC SECURITY DEFINER.
 -- =============================================================================
 

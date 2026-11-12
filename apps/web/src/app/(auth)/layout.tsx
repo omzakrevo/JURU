@@ -15,7 +15,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <div className="relative">
             <h2 className="text-4xl font-extrabold leading-tight">Le financement,<br />en toute confiance.</h2>
             <p className="mt-4 max-w-md text-white/70">Emprunteurs et prêteurs vérifiés, contrats transparents, partenaires réglementés.</p>
-            <p className="mt-8 flex items-center gap-2 text-sm text-white/60"><ShieldCheck className="h-4 w-4 text-accent" /> Vos données sont protégées. KREDIA ne détient pas vos fonds.</p>
+            <p className="mt-8 flex items-center gap-2 text-sm text-white/60"><ShieldCheck className="h-4 w-4 text-accent" /> Vos données sont protégées. JURU ne détient pas vos fonds.</p>
           </div>
           <p className="relative text-xs text-white/40">Burkina Faso · UEMOA</p>
         </aside>

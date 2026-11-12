@@ -17,9 +17,9 @@
 - [ ] **Exécuter sur votre VPS** : appliquer migrations, configurer GoTrue SMS, tester les parcours manuels (docs/TESTS.md) — non testé de bout en bout via PostgREST/GoTrue ici
 - [ ] Compiler/tester l'app Flutter (`flutter analyze/test`), générer le projet Android, FCM
 - [ ] Déployer et tester les Edge Functions (Deno non disponible ici)
-- [ ] Validation juridique : nom KREDIA, CGU/confidentialité, plafond de taux (usure), signature électronique, règles AML/KYC, durées de conservation, conditions de remboursement anticipé
-- [ ] Contrats + API officielles Orange Money / Moov Money ; implémenter les `PaymentGateway` réels, webhooks, rapprochement automatique
-- [ ] Fournisseur SMS ; OTP de re-signature ; filtrage sanctions/PEP ; liveness/OCR KYC
+- [ ] Validation juridique : nom JURU, CGU/confidentialité, plafond de taux (usure), signature électronique, règles AML/KYC, durées de conservation, conditions de remboursement anticipé
+- [ ] **SAS Pay** : fournir la documentation (endpoints, auth, signature webhook, statuts) → implémenter `SasPayGateway` + webhook + rapprochement ; contrat et validation juridique avant toute activation
+- [ ] **SMS Bus** : fournir la documentation → compléter `_shared/smsbus.ts` (hook OTP + notify) ; OTP de re-signature ; filtrage sanctions/PEP ; liveness/OCR KYC
 - [ ] Génération du PDF contrat côté serveur stockée dans Storage `contracts` (actuellement PDF à la volée) ; partenaires : portail dédié (rôle `partner`)
 - [ ] Tests E2E navigateur (Playwright) sur instance Supabase de test ; revue de sécurité externe
 - [ ] Prêts partiels (financement par plusieurs prêteurs), multi-pays UEMOA (devises/règles), i18n

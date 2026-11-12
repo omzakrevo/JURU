@@ -1,5 +1,5 @@
 -- =============================================================================
--- KREDIA — 0009 Formulaire de contact public + exploitation (conservation, planification)
+-- JURU — 0009 Formulaire de contact public + exploitation (conservation, planification)
 -- =============================================================================
 create table contact_messages (
   id          uuid primary key default gen_random_uuid(),

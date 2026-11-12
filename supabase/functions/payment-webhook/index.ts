@@ -1,19 +1,19 @@
 /**
  * Edge Function — réception des webhooks de paiement.
  *
- * ÉTAT : squelette sécurisé. AUCUN format de fournisseur (Orange Money / Moov Money) n'est inventé.
+ * ÉTAT : squelette sécurisé pour SAS Pay (Orange Money / Moov Money). AUCUN format de webhook n'est inventé.
  * Tant que les API officielles ne sont pas contractualisées :
  *   - les secrets WEBHOOK_SECRET_<PROVIDER> sont absents => la fonction répond 503 et ne stocke rien ;
  *   - quand un secret est configuré, elle vérifie une signature HMAC-SHA256 du corps brut (en-tête à adapter
  *     à la documentation officielle), stocke l'événement de façon IDEMPOTENTE (unique provider+event_id),
  *     puis laisse un job de traitement refaire la VÉRIFICATION SERVEUR du statut auprès du fournisseur
  *     avant toute écriture comptable (jamais confiance au seul webhook).
- * Variables : SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (serveur uniquement), WEBHOOK_SECRET_ORANGE_MONEY, WEBHOOK_SECRET_MOOV_MONEY.
+ * Variables : SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (serveur uniquement), WEBHOOK_SECRET_SAS_PAY.
  */
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import { hmacHex, safeEqual } from '../_shared/hmac.ts';
 
-const PROVIDERS: Record<string, string> = { 'orange-money': 'orange_money', 'moov-money': 'moov_money' };
+const PROVIDERS: Record<string, string> = { 'sas-pay': 'sas_pay' };
 
 Deno.serve(async (req) => {
   if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
 
   const raw = await req.text();
   if (raw.length > 100_000) return new Response('Payload too large', { status: 413 });
-  const given = (req.headers.get('x-signature') ?? '').toLowerCase(); // à adapter à la doc officielle
+  const given = (req.headers.get('x-signature') ?? '').toLowerCase(); // en-tête et algorithme à confirmer d'après la doc SAS Pay
   const expected = await hmacHex(secret, raw);
   if (!safeEqual(given, expected)) return new Response('Invalid signature', { status: 401 });
 

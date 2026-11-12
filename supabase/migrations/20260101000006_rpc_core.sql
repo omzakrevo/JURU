@@ -1,5 +1,5 @@
 -- =============================================================================
--- KREDIA — 0006 RPC métier (1/2) : helpers, devis, KYC, demandes, offres, matching
+-- JURU — 0006 RPC métier (1/2) : helpers, devis, KYC, demandes, offres, matching
 -- Toutes les fonctions sensibles sont SECURITY DEFINER, vérifient auth.uid() et les rôles.
 -- Convention d'erreurs : message préfixé par un CODE_EN_MAJUSCULES (mappé côté client).
 -- =============================================================================

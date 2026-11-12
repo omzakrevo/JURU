@@ -42,7 +42,7 @@ export function KycUploader({ userId }: { userId: string }) {
       ))}
       {err && <Alert tone="danger">{err}</Alert>}
       <label className="flex items-start gap-2 text-sm"><input type="checkbox" name="consent" required className="mt-1 h-4 w-4 accent-[rgb(var(--accent))]" />
-        <span>Je consens explicitement à ce que KREDIA traite mes documents d’identité et mon selfie pour vérifier mon identité et prévenir la fraude (voir la politique de confidentialité).</span></label>
+        <span>Je consens explicitement à ce que JURU traite mes documents d’identité et mon selfie pour vérifier mon identité et prévenir la fraude (voir la politique de confidentialité).</span></label>
     </ActionForm>
   );
 }

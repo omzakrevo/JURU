@@ -5,7 +5,7 @@ import { Eye, FileLock2, Fingerprint, KeyRound, Landmark, ScrollText, Users2, Sh
 
 export const metadata: Metadata = { title: 'Sécurité', description: 'Protection des données KYC, contrôle d’accès, double validation, journal d’audit, fonds via partenaires autorisés.' };
 const items = [
-  { i: Landmark, t: 'Pas de fonds sur un compte ordinaire', d: 'KREDIA ne conserve jamais l’argent des utilisateurs sur un compte courant de l’entreprise. Les flux transitent par des partenaires autorisés.' },
+  { i: Landmark, t: 'Pas de fonds sur un compte ordinaire', d: 'JURU ne conserve jamais l’argent des utilisateurs sur un compte courant de l’entreprise. Les flux transitent par des partenaires autorisés.' },
   { i: Fingerprint, t: 'Identité vérifiée', d: 'Emprunteurs et prêteurs passent un KYC (pièce + selfie) avec consentement explicite, examiné par la conformité.' },
   { i: FileLock2, t: 'Documents en stockage privé', d: 'Aucun lien public. Chaque fichier n’est lisible que par son propriétaire et le personnel conformité habilité.' },
   { i: Users2, t: 'Double validation', d: 'Décaissements et attributions de rôles privilégiés exigent l’accord d’un second responsable : jamais seul.' },

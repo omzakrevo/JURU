@@ -1,10 +1,10 @@
-# KREDIA — *Le financement, en toute confiance.*
+# JURU — *Le financement, en toute confiance.*
 
 Plateforme de **mise en relation** emprunteurs ↔ prêteurs (Burkina Faso, puis UEMOA), avec partenaires financiers réglementés.
 
-> ⚠️ **KREDIA n'est pas un établissement financier agréé** et ne détient pas les fonds sur un compte ordinaire.
+> ⚠️ **JURU n'est pas un établissement financier agréé** et ne détient pas les fonds sur un compte ordinaire.
 > **MODE DÉMONSTRATION** : aucun paiement, prêt ou décaissement réel n'est activé ; tout flux d'argent est simulé et signalé.
-> Orange Money / Moov Money ne sont **pas connectés** (aucune API inventée). Le nom « KREDIA » est provisoire (à vérifier juridiquement).
+> SAS Pay (Orange Money / Moov Money) et SMS Bus sont **choisis mais pas encore connectés** (aucune API inventée). Le nom « JURU » est provisoire (à vérifier juridiquement).
 
 ## Contenu
 | Dossier | Rôle |

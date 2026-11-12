@@ -11,7 +11,7 @@ export DATABASE_URL='postgresql://postgres:<MOT_DE_PASSE>@<IP_OU_DOMAINE_VPS>:54
 scripts/apply-migrations.sh --seed-ref            # schéma + RLS + RPC + référentiels (sûr en production)
 scripts/apply-migrations.sh --seed-demo           # + données FICTIVES (développement seulement)
 ```
-Chaque migration est appliquée une seule fois (suivi dans `kredia_meta.migrations`).
+Chaque migration est appliquée une seule fois (suivi dans `juru_meta.migrations`).
 Alternative : Supabase CLI (`supabase db push`) en copiant les fichiers de `supabase/migrations/`.
 
 > Les migrations modifient **votre** base : essayez-les d'abord sur une copie/instance de développement,
@@ -22,12 +22,15 @@ Dans la configuration de votre stack Supabase (`.env` de docker-compose) :
 ```
 GOTRUE_EXTERNAL_PHONE_ENABLED=true
 GOTRUE_EXTERNAL_EMAIL_ENABLED=true          # connexion du personnel (e-mail + mot de passe)
-GOTRUE_SMS_PROVIDER=<twilio|messagebird|vonage|textlocal>   # fournisseur SMS réel (à choisir/contractualiser)
-# En développement, SANS fournisseur SMS : codes de test fixes (jamais en production)
+# SMS réels : SMS Bus via le hook « Send SMS » (Edge Function send-sms-hook) — GoTrue n'a pas de connecteur SMS Bus natif
+GOTRUE_HOOK_SEND_SMS_ENABLED=true
+GOTRUE_HOOK_SEND_SMS_URI=http://functions:9000/send-sms-hook
+GOTRUE_HOOK_SEND_SMS_SECRETS=v1,whsec_<secret>
+# En développement, SANS envoi réel : codes de test fixes (jamais en production)
 GOTRUE_SMS_TEST_OTP=22600000011:123456,22600000013:123456
 ```
-Redémarrez le service `auth`. Le seed démo crée aussi des comptes **e-mail** (mot de passe `Kredia#Demo2026`, développement uniquement) :
-`admin@kredia.demo`, `admin2@…`, `conformite@…`, `credit@…`, `finance@…`, `support@…`, `audit@…`, `compta@…`.
+Redémarrez le service `auth`. L'adaptateur `supabase/functions/_shared/smsbus.ts` doit d'abord être complété d'après la documentation SMS Bus (il est volontairement non implémenté : aucun endpoint inventé). Le seed démo crée aussi des comptes **e-mail** (mot de passe `Juru#Demo2026`, développement uniquement) :
+`admin@juru.demo`, `admin2@…`, `conformite@…`, `credit@…`, `finance@…`, `support@…`, `audit@…`, `compta@…`.
 Les comptes utilisateurs fictifs (Awa, Issouf, Fatimata, Boukary, Salimata) se connectent aussi par e-mail via l'onglet « Équipe » (même mot de passe).
 
 ## 3. Application web

@@ -32,12 +32,12 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
   page.drawRectangle({ x: 0, y: 810, width: 595, height: 32, color: rgb(0.71, 0.42, 0.03) });
   page.drawText('MODE DEMONSTRATION - document sans valeur juridique - aucun fonds reel', { x: 50, y: 821, size: 10, font: bold, color: rgb(0, 0, 0) });
   y = 780;
-  line('KREDIA - Contrat de pret entre particuliers', { b: true, size: 18, color: [0.04, 0.3, 0.23] });
+  line('JURU - Contrat de pret entre particuliers', { b: true, size: 18, color: [0.04, 0.3, 0.23] });
   line(`Contrat n°${c.contract_no} - Version des conditions : ${c.terms_version}`, { size: 9 });
   y -= 8;
   line('Parties', { b: true, size: 12 });
   line(`Emprunteur : ${nm(c.borrower_id)}    Preteur : ${nm(c.lender_id)}`);
-  line("KREDIA est une plateforme de mise en relation, non un etablissement financier agree. Les fonds transitent par des partenaires autorises.", { size: 8 });
+  line("JURU est une plateforme de mise en relation, non un etablissement financier agree. Les fonds transitent par des partenaires autorises.", { size: 8 });
   y -= 8;
   line('Conditions financieres', { b: true, size: 12 });
   [['Capital', formatFcfa(c.principal)], ['Taux annuel nominal', formatBps(c.annual_rate_bps)], ['Duree', `${c.duration_months} mois`],
@@ -56,5 +56,5 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
   line(`Empreinte SHA-256 des conditions : ${c.terms_hash}`, { size: 7 });
   line("Les conditions ci-dessus sont immuables apres signature (aucun changement retroactif).", { size: 8 });
   const bytes = await pdf.save();
-  return new NextResponse(Buffer.from(bytes), { headers: { 'Content-Type': 'application/pdf', 'Content-Disposition': `inline; filename="kredia-contrat-${c.contract_no}.pdf"`, 'Cache-Control': 'private, no-store' } });
+  return new NextResponse(Buffer.from(bytes), { headers: { 'Content-Type': 'application/pdf', 'Content-Disposition': `inline; filename="juru-contrat-${c.contract_no}.pdf"`, 'Cache-Control': 'private, no-store' } });
 }

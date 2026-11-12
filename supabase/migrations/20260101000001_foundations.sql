@@ -1,7 +1,7 @@
 -- =============================================================================
--- KREDIA — 0001 Fondations : types, helpers, pays, profils, rôles, partenaires
+-- JURU — 0001 Fondations : types, helpers, pays, profils, rôles, partenaires
 -- Montants : FCFA entiers (bigint). Dates : timestamptz (UTC).
--- KREDIA n'est PAS un établissement financier agréé (mise en relation uniquement).
+-- JURU n'est PAS un établissement financier agréé (mise en relation uniquement).
 -- =============================================================================
 
 create extension if not exists pg_trgm;

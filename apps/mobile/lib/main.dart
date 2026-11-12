@@ -11,15 +11,15 @@ Future<void> main() async {
   if (Config.isConfigured) {
     await Supabase.initialize(url: Config.supabaseUrl, anonKey: Config.supabaseAnonKey);
   }
-  runApp(const KrediaApp());
+  runApp(const JuruApp());
 }
 
-class KrediaApp extends StatelessWidget {
-  const KrediaApp({super.key});
+class JuruApp extends StatelessWidget {
+  const JuruApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'KREDIA',
+      title: 'JURU',
       debugShowCheckedModeBanner: false,
       theme: K.light(),
       darkTheme: K.dark(),

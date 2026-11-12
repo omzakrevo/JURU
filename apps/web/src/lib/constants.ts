@@ -43,5 +43,5 @@ export const GUARANTEE_LABELS: Record<string, string> = {
 };
 
 export const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE !== 'false';
-export const APP_NAME = 'KREDIA';
+export const APP_NAME = 'JURU';
 export const SLOGAN = 'Le financement, en toute confiance.';

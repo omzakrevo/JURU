@@ -25,5 +25,5 @@ export async function GET(req: Request) {
   const cols = def.cols.split(',');
   const rows = (data ?? []) as unknown as Record<string, unknown>[];
   const csv = '﻿' + [cols.join(';'), ...rows.map((r) => cols.map((c) => esc(r[c])).join(';'))].join('\n');
-  return new NextResponse(csv, { headers: { 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': `attachment; filename="kredia-${type}.csv"`, 'Cache-Control': 'private, no-store' } });
+  return new NextResponse(csv, { headers: { 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': `attachment; filename="juru-${type}.csv"`, 'Cache-Control': 'private, no-store' } });
 }

@@ -1,5 +1,5 @@
 -- =============================================================================
--- KREDIA — 0004 Notifications, litiges, audit, double validation
+-- JURU — 0004 Notifications, litiges, audit, double validation
 -- =============================================================================
 
 create table notifications (

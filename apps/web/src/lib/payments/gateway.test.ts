@@ -19,13 +19,14 @@ describe('PaymentGateway', () => {
     await expect(g.verifyWebhook(body, { 'x-signature': 'deadbeef' })).rejects.toThrow('Signature');
     await expect(g.verifyWebhook(body + ' ', { 'x-signature': g.sign(body) })).rejects.toThrow('Signature');
   });
-  it('fournisseurs réels : non connectés, aucune API inventée', async () => {
-    const live = getGateway('orange_money', true);
+  it('SAS Pay : non connecté, aucune API inventée', async () => {
+    const live = getGateway('sas_pay', true);
     await expect(live.collect({ idempotencyKey: 'x', amount: 1000, payerMsisdn: '+22600000001', reference: 'r' })).rejects.toBeInstanceOf(NotConfiguredError);
-    expect(getGateway('moov_money', true).simulated).toBe(false);
+    expect(live.provider).toBe('sas_pay');
+    expect(live.simulated).toBe(false);
   });
   it('paiements réels désactivés => toujours simulation', () => {
-    expect(getGateway('orange_money', false).simulated).toBe(true);
-    expect(getGateway('moov_money', false).provider).toBe('simulation');
+    expect(getGateway('sas_pay', false).simulated).toBe(true);
+    expect(getGateway('sas_pay', false).provider).toBe('simulation');
   });
 });

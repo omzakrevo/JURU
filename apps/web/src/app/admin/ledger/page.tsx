@@ -21,7 +21,7 @@ export default async function Page() {
       <Table head={['Compte', 'Libellé', 'Débits', 'Crédits', 'Solde']}>{b.map((x) => <tr key={x.code}><Td className="font-mono">{x.code}</Td><Td>{x.name}</Td><Td>{formatFcfa(x.total_debit)}</Td><Td>{formatFcfa(x.total_credit)}</Td><Td className="font-semibold">{formatFcfa(x.balance)}</Td></tr>)}</Table>
       <h2 className="mb-3 mt-8 font-semibold">Dernières écritures</h2>
       <Table head={['Journal', 'Date', 'Libellé', 'Compte', 'Débit', 'Crédit']}>{((ent ?? []) as unknown as E[]).map((e, i) => <tr key={i}><Td>#{e.ledger_journals.journal_no}</Td><Td>{formatDateTime(e.ledger_journals.posted_at)}</Td><Td className="max-w-72 truncate">{e.ledger_journals.description}</Td><Td className="font-mono">{e.ledger_accounts.code}</Td><Td>{e.debit ? formatFcfa(e.debit) : ''}</Td><Td>{e.credit ? formatFcfa(e.credit) : ''}</Td></tr>)}</Table>
-      <Card className="mt-4 text-xs text-muted">Rapprochement : comparez ces écritures avec les relevés du partenaire (colonne « Rapprochement » des transactions). Le compte 1010 représente des fonds détenus par le partenaire, jamais un compte ordinaire KREDIA.</Card>
+      <Card className="mt-4 text-xs text-muted">Rapprochement : comparez ces écritures avec les relevés du partenaire (colonne « Rapprochement » des transactions). Le compte 1010 représente des fonds détenus par le partenaire, jamais un compte ordinaire JURU.</Card>
     </>
   );
 }

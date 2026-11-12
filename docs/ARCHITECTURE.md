@@ -1,12 +1,12 @@
-# KREDIA — Architecture
+# JURU — Architecture
 
-> **Avertissement réglementaire.** KREDIA est une plateforme de *mise en relation*.
+> **Avertissement réglementaire.** JURU est une plateforme de *mise en relation*.
 > Ce n'est **pas** un établissement financier agréé. La plateforme ne détient jamais les fonds
 > des utilisateurs sur un compte ordinaire : les flux transitent par des partenaires autorisés
 > (banques, SFD, opérateurs Mobile Money). Aucun paiement réel, prêt réel ou décaissement
 > n'est activé avant validation juridique, réglementaire, contractuelle et technique.
 > Tant que `country_settings.payments_live_enabled = false`, **tout est simulé** et signalé
-> « MODE DÉMONSTRATION ». Le nom « KREDIA » est provisoire (vérification juridique à faire).
+> « MODE DÉMONSTRATION ». Le nom « JURU » est provisoire (vérification juridique à faire).
 
 ## 1. Vue d'ensemble
 
@@ -83,8 +83,8 @@ décaissements et l'attribution de rôles privilégiés. L'exécution se fait da
 
 ## 7. Paiements (PaymentGateway)
 Interface TypeScript/Deno `PaymentGateway` (`collect`, `disburse`, `getStatus`, `verifyWebhook`)
-avec trois implémentations : `SimulationGateway` (actif), `OrangeMoneyGateway` et
-`MoovMoneyGateway` (**squelettes non connectés** : aucune API ni clé inventée).
+avec deux implémentations : `SimulationGateway` (actif) et `SasPayGateway` (**squelette non connecté** : aucune API ni clé inventée).
+SAS Pay est l'agrégateur retenu pour Orange Money et Moov Money (dépôt = `collect`, retrait = `disburse`) ; SMS Bus envoie les SMS (OTP via hook GoTrue, rappels via `notify`).
 Les webhooks arrivent sur l'Edge Function `payment-webhook` : vérification de signature (HMAC,
 secret en variable d'environnement serveur), insertion idempotente dans
 `payment_webhook_events (provider, event_id)` unique, puis traitement. La vérification
