@@ -21,7 +21,7 @@ const NAV = [
 ];
 
 const TITLES: [string, string][] = [
-  ['/app/demandes/nouvelle', 'Ma demande'], ['/app/offres/nouvelle', 'Mon offre'], ['/app/nouveau', 'Que voulez-vous faire ?'],
+  ['/app/demandes/nouvelle', 'Ma demande'], ['/app/kyc/nouvelle', 'Mon identité'], ['/app/offres/nouvelle', 'Mon offre'], ['/app/nouveau', 'Que voulez-vous faire ?'],
   ['/app/demandes', 'Mes demandes'], ['/app/offres', 'Mes offres'], ['/app/marche', 'Marché'], ['/app/propositions', 'Propositions'],
   ['/app/credits', 'Mes crédits'], ['/app/contrats', 'Contrat'], ['/app/financement', 'Financer'], ['/app/notifications', 'Alertes'],
   ['/app/litiges', 'Litiges'], ['/app/kyc', 'Mon identité'], ['/app/profil', 'Mon profil'],

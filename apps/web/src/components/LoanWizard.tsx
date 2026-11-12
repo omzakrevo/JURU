@@ -1,33 +1,18 @@
 'use client';
 import { useMemo, useState } from 'react';
-import { useFormStatus } from 'react-dom';
 import clsx from 'clsx';
-import { ArrowLeft, ArrowRight, Check, Loader2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { ActionForm } from '@/components/ActionForm';
 import { Alert } from '@/components/ui';
 import { DEFAULT_FEE, DEFAULT_RULES, quoteLoan, validateTerms } from '@/lib/loan';
 import { formatBps, formatFcfa } from '@/lib/money';
 import { GUARANTEE_LABELS, PURPOSES } from '@/lib/constants';
 import { createLoanRequest } from '@/app/actions/app';
+import { COLORS, EMOJI, SubmitButton, Tile } from '@/components/wizard';
 import { sliderStyle } from '@/lib/slider';
 
-const EMOJI: Record<string, string> = { commerce: '🛒', agriculture: '🌾', education: '🎓', health: '🩺', housing: '🏠', equipment: '🛠️', emergency: '🚨', transport: '🚚', other: '✨' };
-const COLORS = ['tile-coral', 'tile-sun', 'tile-sky', 'tile-violet', 'tile-green', 'tile-coral', 'tile-sky', 'tile-sun', 'tile-violet'];
 const num = (s: string) => parseInt(s.replace(/[^\d]/g, ''), 10);
 const STEPS = ['Montant', 'Durée', 'Motif', 'Revenus', 'Taux', 'Garantie', 'Récap'];
-
-function Submit() {
-  const { pending } = useFormStatus();
-  return (
-    <button type="submit" disabled={pending} className="flex flex-[2] items-center justify-center gap-2 rounded-full bg-accent py-3.5 text-base font-black text-[#08281A] shadow-[0_8px_20px_-10px_rgb(47_191_113/.9)] active:scale-95 disabled:opacity-60">
-      {pending ? <Loader2 className="h-5 w-5 animate-spin" /> : <Check className="h-5 w-5" strokeWidth={3} />}{pending ? 'Envoi…' : 'Publier ma demande'}
-    </button>
-  );
-}
-
-const Tile = ({ on, children, cls, onClick, label }: { on: boolean; children: React.ReactNode; cls: string; onClick: () => void; label: string }) => (
-  <button type="button" onClick={onClick} aria-pressed={on} aria-label={label} className={clsx('tile items-center justify-center text-center transition', cls, on ? 'ring-4 ring-night scale-[1.03] shadow-pop' : '')}>{children}{on && <span className="absolute right-1.5 top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-night text-white"><Check className="h-3 w-3" strokeWidth={4} /></span>}</button>
-);
 
 export function LoanWizard() {
   const [step, setStep] = useState(0);
@@ -121,7 +106,7 @@ export function LoanWizard() {
 
       <div className="mt-4 flex gap-3 pb-1">
         {step > 0 && <button type="button" onClick={() => setStep(step - 1)} className="flex flex-1 items-center justify-center gap-1 rounded-full bg-surface-2 py-3.5 text-sm font-extrabold active:scale-95"><ArrowLeft className="h-4 w-4" />Retour</button>}
-        {!last ? <button type="button" disabled={!canNext || (step === 0 && Boolean(err))} onClick={() => setStep(step + 1)} className="flex flex-[2] items-center justify-center gap-2 rounded-full bg-primary py-3.5 text-base font-black text-primary-fg shadow-[0_8px_20px_-10px_rgb(20_69_47/.8)] active:scale-95 disabled:opacity-40">{step === 5 && g === 'none' ? 'Passer' : 'Continuer'}<ArrowRight className="h-5 w-5" strokeWidth={3} /></button> : <Submit />}
+        {!last ? <button type="button" disabled={!canNext || (step === 0 && Boolean(err))} onClick={() => setStep(step + 1)} className="flex flex-[2] items-center justify-center gap-2 rounded-full bg-primary py-3.5 text-base font-black text-primary-fg shadow-[0_8px_20px_-10px_rgb(20_69_47/.8)] active:scale-95 disabled:opacity-40">{step === 5 && g === 'none' ? 'Passer' : 'Continuer'}<ArrowRight className="h-5 w-5" strokeWidth={3} /></button> : <SubmitButton label="Publier ma demande" />}
       </div>
     </ActionForm>
   );

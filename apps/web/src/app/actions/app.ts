@@ -42,7 +42,7 @@ export async function submitKyc(_: ActionState, fd: FormData): Promise<ActionSta
   });
   if (r.error) return { error: r.error.message };
   revalidatePath('/app', 'layout');
-  return done('Documents reçus. Vérification en cours.');
+  redirect('/app/kyc');
 }
 
 export async function createLoanRequest(_: ActionState, fd: FormData): Promise<ActionState> {
