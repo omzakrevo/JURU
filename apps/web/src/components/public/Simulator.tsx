@@ -33,11 +33,11 @@ export function Simulator({ compact }: { compact?: boolean }) {
             <p className="help">Le taux réel est fixé par le prêteur et affiché avant toute acceptation.</p>
           </div>
         </div>
-        <div className="rounded-3xl bg-gradient-to-br from-[#2B3C9C] to-[#0F1B4C] p-4 text-white max-md:order-1 md:p-5">
+        <div className="rounded-3xl bg-gradient-to-br from-[#1B5A3D] to-[#0F3324] p-4 text-white max-md:order-1 md:p-5">
           {q ? (
             <>
               <p className="text-sm text-white/70">Mensualité estimée</p>
-              <p className="text-3xl font-black text-[#FFD43B] md:text-accent">{formatFcfa(q.monthly_payment)}</p>
+              <p className="text-3xl font-black text-[#BFE8CF]">{formatFcfa(q.monthly_payment)}</p>
               <dl className="mt-3 space-y-1.5 text-sm md:mt-4 md:space-y-2">
                 {([['Intérêts', formatFcfa(q.interest_total), false], ['Commission JURU (unique)', formatFcfa(q.fee_total), false], ['Coût total du crédit', formatFcfa(q.total_cost), false],
                   ['Total à rembourser', formatFcfa(q.total_repayable), true], ['Net reçu', formatFcfa(q.net_disbursed), true], ['TAEG indicatif', formatBps(q.effective_annual_rate_bps), false]] as const).map(([k, v, desktopOnly]) => (

@@ -20,7 +20,7 @@ export const Section = ({ children, className = '' }: { children: ReactNode; cla
 export function CtaBand({ title, text, href, label }: { title: string; text: string; href: string; label: string }) {
   return (
     <section className="container-x py-4 lg:py-10">
-      <div className="flex flex-col items-start justify-between gap-5 rounded-3xl bg-gradient-to-br from-[#2B3C9C] to-[#0F1B4C] p-6 text-white sm:flex-row lg:p-8 sm:items-center">
+      <div className="flex flex-col items-start justify-between gap-5 rounded-3xl bg-gradient-to-br from-[#1B5A3D] to-[#0F3324] p-6 text-white sm:flex-row lg:p-8 sm:items-center">
         <div><h2 className="text-2xl font-bold">{title}</h2><p className="mt-1 text-white/80">{text}</p></div>
         <ButtonLink href={href} variant="accent" size="lg">{label}</ButtonLink>
       </div>

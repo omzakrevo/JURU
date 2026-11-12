@@ -18,13 +18,13 @@ export function Header({ loggedIn }: { loggedIn: boolean }) {
   const path = usePathname();
   return (
     <>
-      {/* Mobile : barre d'application */}
-      <header className="relative z-20 flex h-14 shrink-0 items-center justify-between bg-gradient-to-r from-[#0F1B4C] to-[#2B3C9C] px-3 text-white lg:hidden">
-        <Link href="/" aria-label="JURU — accueil"><Logo light /></Link>
-        <div className="flex items-center gap-1.5">
+      {/* Mobile : en-tête clair */}
+      <header className="relative z-20 flex h-16 shrink-0 items-center justify-between px-4 lg:hidden">
+        <Link href="/" aria-label="JURU — accueil"><Logo /></Link>
+        <div className="flex items-center gap-2">
           <ThemeToggle />
-          {loggedIn ? <Link href="/app" className="rounded-full bg-gradient-to-br from-[#19D38A] to-[#05A66F] px-4 py-2 text-sm font-extrabold text-night">Mon espace</Link>
-            : <Link href="/connexion" className="rounded-full bg-gradient-to-br from-[#FFD43B] to-[#FF9F1C] px-4 py-2 text-sm font-extrabold text-night">Connexion</Link>}
+          {loggedIn ? <Link href="/app" className="rounded-full bg-primary px-5 py-2.5 text-sm font-extrabold text-primary-fg">Mon espace</Link>
+            : <Link href="/connexion" className="rounded-full bg-primary px-5 py-2.5 text-sm font-extrabold text-primary-fg">Connexion</Link>}
         </div>
       </header>
       {/* Bureau */}

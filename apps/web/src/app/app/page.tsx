@@ -15,7 +15,7 @@ export default async function Page() {
     supabase.from('loans').select('*').in('status', ['active', 'overdue', 'awaiting_disbursement']),
     supabase.from('loan_requests').select('id,amount,status').eq('borrower_id', s.userId).in('status', ['open', 'pending_review', 'in_negotiation', 'accepted']),
     supabase.from('funding_offers').select('id,amount_available,status').eq('lender_id', s.userId).in('status', ['active', 'pending_review']),
-    supabase.from('notifications').select('id,title,body,created_at,read_at').eq('channel', 'in_app').order('created_at', { ascending: false }).limit(4),
+    supabase.from('notifications').select('id,type,title,body,created_at,read_at').eq('channel', 'in_app').order('created_at', { ascending: false }).limit(4),
   ]);
   const ls = (loans ?? []) as Loan[];
   const ids = ls.map((l) => l.id);
@@ -35,7 +35,9 @@ export default async function Page() {
   return (
     <>
       <MobileDashboard first={first} kycOk={kycOk} nextAmt={nextAmt} nextDate={nextDue?.due_date ?? null} owed={owed} lentOut={lentOut}
-        requests={reqs?.length ?? 0} offers={offers?.length ?? 0} loans={ls.length} />
+        requests={reqs?.length ?? 0} offers={offers?.length ?? 0} loans={ls.length}
+        loan={borrowed[0] ? { no: borrowed[0].loan_no, repaid: borrowed[0].amount_repaid, total: borrowed[0].total_repayable, href: `/app/credits/${borrowed[0].id}` } : null}
+        activity={(notifs ?? []).map((n: { id: string; type: string; title: string; body: string; created_at: string }) => ({ id: n.id, title: n.title, sub: n.body, when: n.created_at, kind: /overdue|failed|late/.test(n.type) ? 'alert' as const : /repayment|disbursement|funding/.test(n.type) ? 'money' as const : 'info' as const }))} />
 
       {/* ===== Bureau ===== */}
       <div className="hidden lg:block">

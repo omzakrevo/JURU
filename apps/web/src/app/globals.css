@@ -5,46 +5,46 @@
 
 /* Design system JURU — vert profond, émeraude, blanc cassé, bleu nuit */
 :root {
-  --bg: 244 247 255;          /* fond très légèrement bleuté, plus frais que le blanc cassé */
+  --bg: 243 241 234;          /* crème chaud */
   --surface: 255 255 255;
-  --surface-2: 236 241 253;
-  --fg: 15 27 76;             /* bleu nuit saturé */
-  --muted: 88 100 140;
-  --border: 221 228 247;
-  --primary: 5 150 105;       /* vert vif (texte, liens) */
-  --primary-fg: 15 27 76;
-  --primary-soft: 209 250 229;
-  --accent: 25 211 138;       /* vert éclatant (boutons, accents) */
-  --accent-soft: 209 250 229;
-  --night: 15 27 76;
-  --sun: 255 190 30;          /* jaune soleil */
-  --coral: 255 94 98;         /* corail */
-  --sky: 41 151 255;          /* bleu ciel */
-  --violet: 124 92 255;       /* violet */
-  --success: 5 150 105;
-  --warning: 196 110 0;
-  --danger: 225 45 70;
+  --surface-2: 235 232 222;
+  --fg: 17 31 25;             /* quasi-noir vert */
+  --muted: 104 117 109;
+  --border: 226 223 212;
+  --primary: 20 69 47;        /* vert profond */
+  --primary-fg: 255 255 255;
+  --primary-soft: 222 238 227;
+  --accent: 47 191 113;       /* émeraude vif (touches, actions) */
+  --accent-soft: 222 238 227;
+  --night: 15 31 24;
+  --sun: 245 190 60;
+  --coral: 229 83 60;
+  --sky: 58 130 220;
+  --violet: 124 92 220;
+  --success: 22 128 74;
+  --warning: 176 105 0;
+  --danger: 205 45 60;
   --info: 37 99 235;
-  --shadow: 30 41 110;
+  --shadow: 15 31 24;
   color-scheme: light;
 }
 [data-theme='dark'] {
-  --bg: 9 14 40;
-  --surface: 17 25 62;
-  --surface-2: 26 37 84;
-  --fg: 239 243 255;
-  --muted: 160 172 215;
-  --border: 40 54 112;
-  --primary: 52 226 160;
-  --primary-fg: 9 14 40;
-  --primary-soft: 14 60 60;
-  --accent: 25 211 138;
-  --accent-soft: 14 60 60;
-  --night: 6 9 28;
-  --sun: 255 200 60;
-  --coral: 255 120 120;
-  --sky: 80 175 255;
-  --violet: 150 125 255;
+  --bg: 10 20 16;
+  --surface: 19 34 27;
+  --surface-2: 28 46 37;
+  --fg: 238 244 240;
+  --muted: 150 168 158;
+  --border: 38 58 47;
+  --primary: 94 214 150;
+  --primary-fg: 10 30 20;
+  --primary-soft: 22 58 42;
+  --accent: 47 191 113;
+  --accent-soft: 22 58 42;
+  --night: 6 14 10;
+  --sun: 250 200 80;
+  --coral: 255 120 100;
+  --sky: 100 170 250;
+  --violet: 160 135 250;
   --success: 74 222 128;
   --warning: 251 191 36;
   --danger: 255 120 130;
@@ -65,14 +65,18 @@ body { @apply bg-bg text-fg font-sans antialiased; -webkit-tap-highlight-color: 
 @layer components {
   .container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
   .card { @apply rounded-3xl border border-border bg-surface shadow-card; }
-  /* Tuiles « application » : dégradés vifs, texte blanc en gras */
-  .tile { @apply relative flex flex-col justify-between overflow-hidden rounded-[28px] p-5 text-left font-bold text-white shadow-card transition active:scale-[.97]; }
-  .tile-green { background-image: linear-gradient(135deg, #19D38A, #05966A); color: rgb(var(--night)); }
-  .tile-coral { background-image: linear-gradient(135deg, #FF8A5B, #FF4D6D); }
-  .tile-sun { background-image: linear-gradient(135deg, #FFD43B, #FF9F1C); color: rgb(var(--night)); }
-  .tile-sky { background-image: linear-gradient(135deg, #4CC9FF, #2563EB); }
-  .tile-violet { background-image: linear-gradient(135deg, #B497FF, #6D3CF0); }
-  .tile-night { background-image: linear-gradient(135deg, #2B3C9C, #0F1B4C); }
+  /* Tuiles : surfaces pastel calmes, icône dans une pastille blanche (inspiré des applis fintech) */
+  .tile { @apply relative flex flex-col justify-between overflow-hidden rounded-[28px] p-5 text-left font-bold text-fg shadow-card transition active:scale-[.97]; }
+  .tile > svg:first-child { box-sizing: content-box; padding: 11px; border-radius: 9999px; background: rgb(255 255 255 / .92); }
+  .tile-green { background: #E1F1E7; } .tile-green > svg:first-child { color: #14452F; }
+  .tile-coral { background: #FBE5DE; } .tile-coral > svg:first-child { color: #E5533C; }
+  .tile-sun { background: #FAEFCB; } .tile-sun > svg:first-child { color: #B07A00; }
+  .tile-sky { background: #E0EDFA; } .tile-sky > svg:first-child { color: #2F6FC9; }
+  .tile-violet { background: #EAE5F9; } .tile-violet > svg:first-child { color: #6A45D6; }
+  .tile-night { background: linear-gradient(145deg, #1B5A3D, #0F3324); color: #fff; } .tile-night > svg:first-child { background: rgb(255 255 255 / .16); color: #fff; }
+  [data-theme='dark'] .tile-green { background: rgb(47 191 113 / .16); } [data-theme='dark'] .tile-coral { background: rgb(255 120 100 / .16); }
+  [data-theme='dark'] .tile-sun { background: rgb(250 200 80 / .16); } [data-theme='dark'] .tile-sky { background: rgb(100 170 250 / .16); }
+  [data-theme='dark'] .tile-violet { background: rgb(160 135 250 / .16); } [data-theme='dark'] .tile > svg:first-child { background: rgb(255 255 255 / .12); }
   /* Respiration : mouvements lents et doux (désactivés si l'utilisateur réduit les animations) */
   .breathe { animation: breathe 6s ease-in-out infinite; }
   .breathe-delay { animation: breathe 6s ease-in-out 1.5s infinite; }
@@ -87,9 +91,9 @@ body { @apply bg-bg text-fg font-sans antialiased; -webkit-tap-highlight-color: 
 }
 
 /* Curseurs colorés et faciles à manipuler au doigt */
-input[type='range'] { -webkit-appearance: none; appearance: none; height: 10px; border-radius: 999px; background: #D5DDF5; outline-offset: 6px; }
-input[type='range']::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 999px; background: linear-gradient(135deg, #19D38A, #05A66F); border: 4px solid #fff; box-shadow: 0 2px 8px rgb(30 41 110 / .35); }
-input[type='range']::-moz-range-thumb { width: 22px; height: 22px; border-radius: 999px; background: #19D38A; border: 4px solid #fff; box-shadow: 0 2px 8px rgb(30 41 110 / .35); }
+input[type='range'] { -webkit-appearance: none; appearance: none; height: 10px; border-radius: 999px; background: #DAD7CA; outline-offset: 6px; }
+input[type='range']::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 999px; background: #14452F; border: 4px solid #fff; box-shadow: 0 2px 8px rgb(15 31 24 / .35); }
+input[type='range']::-moz-range-thumb { width: 22px; height: 22px; border-radius: 999px; background: #14452F; border: 4px solid #fff; box-shadow: 0 2px 8px rgb(15 31 24 / .35); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }

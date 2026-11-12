@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { ArrowLeft, Bell, Briefcase, FileText, HandCoins, Home, LayoutDashboard, LifeBuoy, LogOut, Plus, ScanFace, Search, Send, Shield, User, X } from 'lucide-react';
-import { Logo, LogoMark } from '@/components/Logo';
+import { Logo } from '@/components/Logo';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { signOut } from '@/app/actions/auth';
 
@@ -40,10 +40,11 @@ export function AppShell({ children, name, unread, isStaff, banner, pathOverride
   const immersive = path.endsWith('/nouvelle'); // parcours plein écran : pas de barre d'onglets
   const title = root ? 'JURU' : (TITLES.find(([p]) => path.startsWith(p))?.[1] ?? 'JURU');
 
-  const TabLink = ({ t }: { t: Tab }) => (
-    <Link href={t.href} className={clsx('flex flex-1 flex-col items-center gap-0.5 py-1.5 text-[11px] font-bold transition', active(t.href, t.exact) ? 'text-primary' : 'text-muted')}>
-      <span className={clsx('flex h-8 w-14 items-center justify-center rounded-full transition', active(t.href, t.exact) && 'bg-primary-soft')}><t.icon className="h-[22px] w-[22px]" strokeWidth={active(t.href, t.exact) ? 2.6 : 2} /></span>
-      {t.label}
+  const initial = (name.trim()[0] ?? 'J').toUpperCase();
+  const first = name.trim().split(' ')[0] || 'vous';
+  const Pill = ({ t }: { t: Tab }) => (
+    <Link href={t.href} aria-label={t.label} title={t.label} className={clsx('flex h-12 w-12 items-center justify-center rounded-full transition', active(t.href, t.exact) ? 'bg-white text-[#0F1F18]' : 'text-white/60 hover:text-white')}>
+      <t.icon className="h-[22px] w-[22px]" strokeWidth={active(t.href, t.exact) ? 2.6 : 2} />
     </Link>
   );
 
@@ -71,32 +72,33 @@ export function AppShell({ children, name, unread, isStaff, banner, pathOverride
         </aside>
 
         <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-          {/* ----- Mobile : barre du haut ----- */}
-          <header className="relative z-20 flex h-14 shrink-0 items-center justify-between bg-gradient-to-r from-[#0F1B4C] to-[#2B3C9C] px-3 text-white lg:hidden">
-            <div className="flex w-11 justify-start">
-              {immersive ? <button aria-label="Fermer" onClick={() => router.push('/app')} className="rounded-full p-2 hover:bg-white/10"><X className="h-6 w-6" /></button>
-                : root ? <LogoMark className="h-8 w-8" /> : <button aria-label="Retour" onClick={() => router.back()} className="rounded-full p-2 hover:bg-white/10"><ArrowLeft className="h-6 w-6" /></button>}
-            </div>
-            <h1 className="truncate text-base font-extrabold tracking-tight">{title}</h1>
-            <div className="flex w-11 justify-end">
-              <Link href="/app/notifications" aria-label={`Alertes${unread ? ` (${unread})` : ''}`} className="relative rounded-full p-2 hover:bg-white/10">
-                <Bell className="h-6 w-6" />{unread > 0 && <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#FFBE1E] px-1 text-[10px] font-extrabold text-night">{unread > 9 ? '9+' : unread}</span>}
-              </Link>
-            </div>
+          {/* ----- Mobile : en-tête clair ----- */}
+          <header className="relative z-20 flex h-16 shrink-0 items-center justify-between px-4 lg:hidden">
+            {immersive ? <button aria-label="Fermer" onClick={() => router.push('/app')} className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface shadow-card"><X className="h-5 w-5" /></button>
+              : root ? (
+                <Link href="/app/profil" className="flex items-center gap-3">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-base font-extrabold text-primary-fg">{initial}</span>
+                  <span className="leading-tight"><span className="block text-[11px] font-semibold text-muted">Bonjour,</span><span className="block text-base font-extrabold">{first} 👋</span></span>
+                </Link>
+              ) : <button aria-label="Retour" onClick={() => router.back()} className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface shadow-card"><ArrowLeft className="h-5 w-5" /></button>}
+            {!root && <h1 className="absolute inset-x-16 truncate text-center text-base font-extrabold">{title}</h1>}
+            <Link href="/app/notifications" aria-label={`Alertes${unread ? ` (${unread})` : ''}`} className="relative flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface shadow-card">
+              <Bell className="h-5 w-5" />{unread > 0 && <span className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-coral px-1 text-[10px] font-extrabold text-white">{unread > 9 ? '9+' : unread}</span>}
+            </Link>
           </header>
 
-          <main className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-4 py-3 lg:block lg:overflow-visible lg:px-0 lg:py-0">
+          <main className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-4 pb-3 pt-1 lg:block lg:overflow-visible lg:px-0 lg:py-0">
             <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col lg:block lg:px-6 lg:pb-12 lg:pt-8">{children}</div>
           </main>
 
-          {/* ----- Mobile : barre d'onglets ----- */}
+          {/* ----- Mobile : barre flottante en pilule ----- */}
           {!immersive && (
-            <nav className="relative z-20 flex shrink-0 items-end border-t border-border bg-surface px-1 pb-[max(env(safe-area-inset-bottom),6px)] pt-1 shadow-[0_-8px_24px_-12px_rgb(30_41_110/.25)] lg:hidden" aria-label="Navigation mobile">
-              {TABS_L.map((t) => <TabLink key={t.href} t={t} />)}
-              <div className="flex flex-1 justify-center">
-                <Link href="/app/nouveau" aria-label="Nouveau" className="relative -mt-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#FFD43B] to-[#FF7A1C] text-night shadow-[0_10px_24px_-8px_rgb(255_122_28/.9)] ring-4 ring-surface transition active:scale-90"><span aria-hidden className="halo absolute inset-0 rounded-full bg-[#FFB01E]" /><Plus className="relative h-8 w-8" strokeWidth={3} /></Link>
+            <nav className="relative z-20 shrink-0 px-5 pb-[max(env(safe-area-inset-bottom),12px)] pt-1 lg:hidden" aria-label="Navigation mobile">
+              <div className="mx-auto flex max-w-sm items-center justify-between rounded-full bg-[#0F1F18] p-1.5 shadow-[0_18px_34px_-14px_rgb(15_31_24/.7)]">
+                {TABS_L.map((t) => <Pill key={t.href} t={t} />)}
+                <Link href="/app/nouveau" aria-label="Nouveau" title="Nouveau" className="relative flex h-12 w-12 items-center justify-center rounded-full bg-accent text-[#08281A] transition active:scale-90"><span aria-hidden className="halo absolute inset-0 rounded-full bg-accent" /><Plus className="relative h-7 w-7" strokeWidth={3} /></Link>
+                {TABS_R.map((t) => <Pill key={t.href} t={t} />)}
               </div>
-              {TABS_R.map((t) => <TabLink key={t.href} t={t} />)}
             </nav>
           )}
         </div>

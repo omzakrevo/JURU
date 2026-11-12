@@ -12,7 +12,9 @@ export default async function Page({ params }: { params: Promise<{ screen: strin
   if (process.env.NEXT_PUBLIC_UI_PREVIEW !== 'true') notFound();
   const { screen } = await params;
   const map: Record<string, { path: string; body: React.ReactNode }> = {
-    dashboard: { path: '/app', body: <MobileDashboard first="Awa" kycOk nextAmt={26329} nextDate="2026-12-12" owed={130000} lentOut={0} requests={2} offers={1} loans={1} /> },
+    dashboard: { path: '/app', body: <MobileDashboard first="Awa" kycOk nextAmt={26329} nextDate="2026-12-12" owed={130000} lentOut={80000} requests={2} offers={1} loans={1}
+      loan={{ no: 1, repaid: 20000, total: 157972, href: '#' }}
+      activity={[{ id: '1', title: 'Remboursement enregistré', sub: '20 000 FCFA (mode test)', when: '2026-11-12', kind: 'money' }, { id: '2', title: 'Nouvelle proposition', sub: 'Une proposition de 150 000 FCFA', when: '2026-11-10', kind: 'info' }, { id: '3', title: 'Échéance en retard', sub: 'Échéance n°1 du crédit #1', when: '2026-11-08', kind: 'alert' }]} /> },
     wizard: { path: '/app/demandes/nouvelle', body: <div className="flex min-h-full flex-1 flex-col"><LoanWizard /></div> },
     nouveau: { path: '/app/nouveau', body: (
       <div className="grid grid-cols-2 gap-3">

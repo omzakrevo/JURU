@@ -5,8 +5,8 @@ import { statusInfo, type Tone } from '@/lib/constants';
 import { Inbox } from 'lucide-react';
 
 const btn = {
-  primary: 'bg-gradient-to-br from-[#19D38A] to-[#05A66F] text-night hover:brightness-105 shadow-[0_6px_18px_-6px_rgb(5_150_105/.7)]',
-  accent: 'bg-gradient-to-br from-[#FFD43B] to-[#FF9F1C] text-night hover:brightness-105 shadow-[0_6px_18px_-6px_rgb(255_159_28/.8)]',
+  primary: 'bg-primary text-primary-fg hover:brightness-110 shadow-[0_8px_20px_-10px_rgb(20_69_47/.8)]',
+  accent: 'bg-accent text-night hover:brightness-105 shadow-[0_8px_20px_-10px_rgb(47_191_113/.8)]',
   secondary: 'bg-surface-2 text-fg hover:brightness-95 border border-border',
   ghost: 'text-fg hover:bg-surface-2',
   danger: 'bg-danger text-white hover:brightness-110',

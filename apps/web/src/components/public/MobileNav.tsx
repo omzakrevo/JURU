@@ -16,13 +16,15 @@ export function PublicMobileNav() {
   const path = usePathname();
   const on = (h: string, exact?: boolean) => (exact ? path === h : path === h || path.startsWith(h + '/'));
   return (
-    <nav className="relative z-20 flex shrink-0 border-t border-border bg-surface px-1 pb-[max(env(safe-area-inset-bottom),6px)] pt-1 shadow-[0_-8px_24px_-12px_rgb(30_41_110/.25)] lg:hidden" aria-label="Navigation mobile">
-      {TABS.map((t) => (
-        <Link key={t.href} href={t.href} className={clsx('flex flex-1 flex-col items-center gap-0.5 py-1.5 text-[11px] font-bold', on(t.href, t.exact) ? 'text-primary' : 'text-muted')}>
-          <span className={clsx('flex h-8 w-14 items-center justify-center rounded-full transition', on(t.href, t.exact) && 'bg-primary-soft')}><t.icon className="h-[22px] w-[22px]" strokeWidth={on(t.href, t.exact) ? 2.6 : 2} /></span>
-          {t.label}
-        </Link>
-      ))}
+    <nav className="relative z-20 shrink-0 px-5 pb-[max(env(safe-area-inset-bottom),12px)] pt-1 lg:hidden" aria-label="Navigation mobile">
+      <div className="mx-auto flex max-w-sm items-center justify-between rounded-full bg-[#0F1F18] p-1.5 shadow-[0_18px_34px_-14px_rgb(15_31_24/.7)]">
+        {TABS.map((t) => (
+          <Link key={t.href} href={t.href} aria-label={t.label} title={t.label} className={clsx('flex h-12 flex-1 items-center justify-center gap-2 rounded-full text-sm font-extrabold transition', on(t.href, t.exact) ? 'bg-white px-4 text-[#0F1F18]' : 'text-white/60')}>
+            <t.icon className="h-[22px] w-[22px] shrink-0" strokeWidth={on(t.href, t.exact) ? 2.6 : 2} />
+            {on(t.href, t.exact) && <span>{t.label}</span>}
+          </Link>
+        ))}
+      </div>
     </nav>
   );
 }
