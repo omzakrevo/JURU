@@ -5,60 +5,82 @@
 
 /* Design system JURU — vert profond, émeraude, blanc cassé, bleu nuit */
 :root {
-  --bg: 247 245 239;          /* blanc cassé */
+  --bg: 244 247 255;          /* fond très légèrement bleuté, plus frais que le blanc cassé */
   --surface: 255 255 255;
-  --surface-2: 241 238 229;
-  --fg: 11 27 58;             /* bleu nuit */
-  --muted: 92 105 128;
-  --border: 224 220 207;
-  --primary: 11 77 58;        /* vert profond */
-  --primary-fg: 255 255 255;
-  --primary-soft: 220 238 230;
-  --accent: 16 185 129;       /* émeraude */
+  --surface-2: 236 241 253;
+  --fg: 15 27 76;             /* bleu nuit saturé */
+  --muted: 88 100 140;
+  --border: 221 228 247;
+  --primary: 5 150 105;       /* vert vif (texte, liens) */
+  --primary-fg: 15 27 76;
+  --primary-soft: 209 250 229;
+  --accent: 25 211 138;       /* vert éclatant (boutons, accents) */
   --accent-soft: 209 250 229;
-  --night: 11 27 58;
-  --success: 22 128 74;
-  --warning: 180 106 8;
-  --danger: 192 38 54;
+  --night: 15 27 76;
+  --sun: 255 190 30;          /* jaune soleil */
+  --coral: 255 94 98;         /* corail */
+  --sky: 41 151 255;          /* bleu ciel */
+  --violet: 124 92 255;       /* violet */
+  --success: 5 150 105;
+  --warning: 196 110 0;
+  --danger: 225 45 70;
   --info: 37 99 235;
-  --shadow: 11 27 58;
+  --shadow: 30 41 110;
   color-scheme: light;
 }
 [data-theme='dark'] {
-  --bg: 8 16 34;
-  --surface: 14 26 50;
-  --surface-2: 20 35 64;
-  --fg: 238 242 247;
-  --muted: 153 168 192;
-  --border: 36 54 88;
-  --primary: 52 211 153;
-  --primary-fg: 6 20 17;
-  --primary-soft: 16 52 46;
-  --accent: 16 185 129;
-  --accent-soft: 14 58 48;
-  --night: 5 10 22;
+  --bg: 9 14 40;
+  --surface: 17 25 62;
+  --surface-2: 26 37 84;
+  --fg: 239 243 255;
+  --muted: 160 172 215;
+  --border: 40 54 112;
+  --primary: 52 226 160;
+  --primary-fg: 9 14 40;
+  --primary-soft: 14 60 60;
+  --accent: 25 211 138;
+  --accent-soft: 14 60 60;
+  --night: 6 9 28;
+  --sun: 255 200 60;
+  --coral: 255 120 120;
+  --sky: 80 175 255;
+  --violet: 150 125 255;
   --success: 74 222 128;
   --warning: 251 191 36;
-  --danger: 248 113 113;
-  --info: 96 165 250;
+  --danger: 255 120 130;
+  --info: 110 170 255;
   --shadow: 0 0 0;
   color-scheme: dark;
 }
 
 html { scroll-behavior: smooth; }
-body { @apply bg-bg text-fg font-sans antialiased; font-feature-settings: 'cv11', 'ss01'; }
+body { @apply bg-bg text-fg font-sans antialiased; -webkit-tap-highlight-color: transparent; font-feature-settings: 'cv11', 'ss01'; }
 ::selection { background: rgb(var(--accent) / 0.3); }
 :focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 2px; border-radius: 6px; }
 
 @layer components {
   .container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
-  .card { @apply rounded-2xl border border-border bg-surface shadow-card; }
+  .card { @apply rounded-3xl border border-border bg-surface shadow-card; }
+  /* Tuiles « application » : dégradés vifs, texte blanc en gras */
+  .tile { @apply relative flex flex-col justify-between overflow-hidden rounded-3xl p-4 text-left font-bold text-white shadow-card transition active:scale-[.97]; }
+  .tile-green { background-image: linear-gradient(135deg, #19D38A, #05966A); color: rgb(var(--night)); }
+  .tile-coral { background-image: linear-gradient(135deg, #FF8A5B, #FF4D6D); }
+  .tile-sun { background-image: linear-gradient(135deg, #FFD43B, #FF9F1C); color: rgb(var(--night)); }
+  .tile-sky { background-image: linear-gradient(135deg, #4CC9FF, #2563EB); }
+  .tile-violet { background-image: linear-gradient(135deg, #B497FF, #6D3CF0); }
+  .tile-night { background-image: linear-gradient(135deg, #2B3C9C, #0F1B4C); }
+  .no-scrollbar { scrollbar-width: none; } .no-scrollbar::-webkit-scrollbar { display: none; }
   .input { @apply w-full rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm text-fg placeholder:text-muted/70 transition focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 disabled:opacity-60; }
   .label { @apply mb-1.5 block text-sm font-medium; }
   .help { @apply mt-1 text-xs text-muted; }
   .skeleton { @apply relative overflow-hidden rounded-lg bg-surface-2; }
   .skeleton::after { content: ''; @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent; }
 }
+
+/* Curseurs colorés et faciles à manipuler au doigt */
+input[type='range'] { -webkit-appearance: none; appearance: none; height: 10px; border-radius: 999px; background: #D5DDF5; outline-offset: 6px; }
+input[type='range']::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 999px; background: linear-gradient(135deg, #19D38A, #05A66F); border: 4px solid #fff; box-shadow: 0 2px 8px rgb(30 41 110 / .35); }
+input[type='range']::-moz-range-thumb { width: 22px; height: 22px; border-radius: 999px; background: #19D38A; border: 4px solid #fff; box-shadow: 0 2px 8px rgb(30 41 110 / .35); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }

@@ -17,12 +17,12 @@ export default async function Page({ searchParams }: { searchParams: Promise<SP>
   const supabase = await createClient();
   const tab = sp.tab === 'offres' || (!s.profile.is_lender && sp.tab !== 'demandes') ? 'offres' : 'demandes';
   const tabs = (
-    <div className="mb-5 inline-flex rounded-full bg-surface-2 p-1 text-sm font-semibold">
+    <div className="mb-3 flex rounded-full bg-surface-2 p-1 text-sm font-extrabold lg:mb-5 lg:inline-flex">
       <Link href="/app/marche?tab=demandes" className={`rounded-full px-4 py-1.5 ${tab === 'demandes' ? 'bg-surface shadow-card' : 'text-muted'}`}>Demandes (prêteurs)</Link>
       <Link href="/app/marche?tab=offres" className={`rounded-full px-4 py-1.5 ${tab === 'offres' ? 'bg-surface shadow-card' : 'text-muted'}`}>Offres (emprunteurs)</Link>
     </div>);
   const filters = (
-    <form className="mb-5 grid gap-3 rounded-2xl border border-border bg-surface p-4 sm:grid-cols-5" method="get">
+    <form className="grid gap-3 rounded-2xl border border-border bg-surface p-4 sm:grid-cols-5" method="get">
       <input type="hidden" name="tab" value={tab} />
       <Field label="Motif"><Select name="purpose" defaultValue={sp.purpose ?? ''}><option value="">Tous</option>{Object.entries(PURPOSES).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</Select></Field>
       <Field label="Montant min"><Input name="min" inputMode="numeric" defaultValue={sp.min} /></Field>
@@ -30,6 +30,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<SP>
       <Field label="Durée max (mois)"><Input name="duration" inputMode="numeric" defaultValue={sp.duration} /></Field>
       <div className="flex items-end"><button className="w-full rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-primary-fg">Filtrer</button></div>
     </form>);
+  const filtersBlock = (<><details className="mb-3 rounded-2xl border border-border bg-surface p-3 lg:hidden"><summary className="cursor-pointer text-sm font-extrabold">Filtres</summary><div className="mt-3">{filters}</div></details><div className="mb-5 hidden lg:block">{filters}</div></>);
   const min = parseInt(sp.min ?? '', 10), max = parseInt(sp.max ?? '', 10), dur = parseInt(sp.duration ?? '', 10);
 
   if (tab === 'demandes') {
@@ -41,11 +42,11 @@ export default async function Page({ searchParams }: { searchParams: Promise<SP>
     const { data } = await q;
     const rows = (data ?? []) as MarketRequest[];
     const { data: myOffers } = await supabase.from('funding_offers').select('id,title,annual_rate_bps').eq('lender_id', s.userId).eq('status', 'active');
-    return (<><PageHeader title="Marché" subtitle="Demandes de financement vérifiées, sans données d’identité sensibles." />{tabs}{filters}
+    return (<><PageHeader title="Marché" subtitle="Demandes de financement vérifiées, sans données d’identité sensibles." />{tabs}{filtersBlock}
       {!s.profile.is_lender || s.profile.kyc_status !== 'approved' ? <EmptyState title="Accès prêteur requis" text="Activez le profil prêteur et faites valider votre identité pour consulter les demandes." action={<ButtonLink href="/app/profil">Mon profil</ButtonLink>} />
         : rows.length === 0 ? <EmptyState icon={<Search className="h-6 w-6" />} title="Aucune demande" text="Modifiez vos filtres ou revenez plus tard." /> :
-        <div className="grid gap-4 md:grid-cols-2">{rows.map((r) => (
-          <Card key={r.id} className="!p-5"><div className="flex items-start justify-between"><div><p className="text-xl font-bold">{formatFcfa(r.amount)}</p><p className="text-sm text-muted">{r.duration_months} mois · {PURPOSES[r.purpose]}</p></div>
+        <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-2 md:gap-4 md:overflow-visible md:px-0">{rows.map((r) => (
+          <Card key={r.id} className="w-[88%] shrink-0 snap-center !p-5 md:w-auto"><div className="flex items-start justify-between"><div><p className="text-xl font-bold">{formatFcfa(r.amount)}</p><p className="text-sm text-muted">{r.duration_months} mois · {PURPOSES[r.purpose]}</p></div>
             <div className="text-right"><Badge tone={r.risk_grade === 'A' ? 'success' : r.risk_grade === 'B' ? 'info' : 'warning'}>Risque {r.risk_grade}</Badge></div></div>
             <p className="mt-2 text-sm">{r.purpose_details}</p>
             <p className="mt-2 text-xs text-muted">{r.borrower_display}{r.borrower_kyc_verified ? ' · identité vérifiée' : ''} · taux max {formatBps(r.max_annual_rate_bps)} · garantie : {GUARANTEE_LABELS[r.guarantee_type]}</p>
@@ -61,9 +62,9 @@ export default async function Page({ searchParams }: { searchParams: Promise<SP>
   if (dur) q = q.lte('min_duration_months', dur);
   const { data } = await q;
   const rows = ((data ?? []) as FundingOffer[]).filter((o) => !sp.purpose || o.accepted_purposes.length === 0 || o.accepted_purposes.includes(sp.purpose));
-  return (<><PageHeader title="Marché" subtitle="Offres de financement actives. Pour en profiter, publiez une demande : les prêteurs vous adressent une proposition ferme." />{tabs}{filters}
+  return (<><PageHeader title="Marché" subtitle="Offres de financement actives. Pour en profiter, publiez une demande : les prêteurs vous adressent une proposition ferme." />{tabs}{filtersBlock}
     {rows.length === 0 ? <EmptyState title="Aucune offre" text="Modifiez vos filtres ou revenez plus tard." action={<ButtonLink href="/app/demandes/nouvelle">Faire une demande</ButtonLink>} /> :
-      <div className="grid gap-4 md:grid-cols-2">{rows.map((o) => <Card key={o.id} className="!p-5"><p className="font-semibold">{o.title}</p><p className="mt-1 text-2xl font-bold text-primary">{formatBps(o.annual_rate_bps)}<span className="text-sm font-normal text-muted"> par an</span></p>
+      <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-2 md:gap-4 md:overflow-visible md:px-0">{rows.map((o) => <Card key={o.id} className="w-[88%] shrink-0 snap-center !p-5 md:w-auto"><p className="font-semibold">{o.title}</p><p className="mt-1 text-2xl font-bold text-primary">{formatBps(o.annual_rate_bps)}<span className="text-sm font-normal text-muted"> par an</span></p>
         <p className="mt-2 text-sm text-muted">{formatFcfa(o.min_amount)} – {formatFcfa(o.max_amount)} · {o.min_duration_months}–{o.max_duration_months} mois</p>
         <p className="mt-1 text-xs text-muted">Motifs : {o.accepted_purposes.length ? o.accepted_purposes.map((p) => PURPOSES[p]).join(', ') : 'tous'} · garantie {o.requires_guarantee ? 'exigée' : 'non exigée'}</p></Card>)}</div>}</>);
 }

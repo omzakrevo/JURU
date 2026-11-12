@@ -1,22 +1,22 @@
 import Link from 'next/link';
 import clsx from 'clsx';
-import type { ComponentProps, ReactNode } from 'react';
+import { Children, cloneElement, isValidElement, type ComponentProps, type ReactElement, type ReactNode } from 'react';
 import { statusInfo, type Tone } from '@/lib/constants';
 import { Inbox } from 'lucide-react';
 
 const btn = {
-  primary: 'bg-primary text-primary-fg hover:brightness-110 shadow-sm',
-  accent: 'bg-accent text-night hover:brightness-105 shadow-sm',
+  primary: 'bg-gradient-to-br from-[#19D38A] to-[#05A66F] text-night hover:brightness-105 shadow-[0_6px_18px_-6px_rgb(5_150_105/.7)]',
+  accent: 'bg-gradient-to-br from-[#FFD43B] to-[#FF9F1C] text-night hover:brightness-105 shadow-[0_6px_18px_-6px_rgb(255_159_28/.8)]',
   secondary: 'bg-surface-2 text-fg hover:brightness-95 border border-border',
   ghost: 'text-fg hover:bg-surface-2',
   danger: 'bg-danger text-white hover:brightness-110',
   outline: 'border border-border text-fg hover:bg-surface-2',
 };
-const sizes = { sm: 'px-3 py-1.5 text-sm', md: 'px-4 py-2.5 text-sm', lg: 'px-6 py-3 text-base' };
+const sizes = { sm: 'px-3.5 py-2 text-sm', md: 'px-5 py-3 text-sm', lg: 'px-6 py-3.5 text-base' };
 
 type BtnProps = { variant?: keyof typeof btn; size?: keyof typeof sizes; className?: string };
 const btnClass = ({ variant = 'primary', size = 'md', className }: BtnProps) =>
-  clsx('inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:scale-[.98] disabled:pointer-events-none disabled:opacity-50', btn[variant], sizes[size], className);
+  clsx('inline-flex items-center justify-center gap-2 rounded-full font-bold transition active:scale-[.97] disabled:pointer-events-none disabled:opacity-50', btn[variant], sizes[size], className);
 
 export function Button({ variant, size, className, ...p }: ComponentProps<'button'> & BtnProps) {
   return <button {...p} className={btnClass({ variant, size, className })} />;
@@ -43,10 +43,10 @@ export function Card({ children, className, ...p }: ComponentProps<'div'>) {
 
 export function PageHeader({ title, subtitle, actions }: { title: string; subtitle?: string; actions?: ReactNode }) {
   return (
-    <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+    <div className="mb-4 flex flex-wrap items-end justify-between gap-2 lg:mb-6 lg:gap-3">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h1>
-        {subtitle && <p className="mt-1 max-w-2xl text-sm text-muted">{subtitle}</p>}
+        <h1 className="text-xl font-extrabold tracking-tight sm:text-2xl lg:text-3xl">{title}</h1>
+        {subtitle && <p className="mt-0.5 max-w-2xl text-xs text-muted sm:text-sm lg:mt-1">{subtitle}</p>}
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
     </div>
@@ -103,21 +103,27 @@ export const Textarea = (p: ComponentProps<'textarea'>) => <textarea rows={3} {.
 export const Select = (p: ComponentProps<'select'>) => <select {...p} className={clsx('input pr-8', p.className)} />;
 
 export function Table({ head, children, empty }: { head: string[]; children: ReactNode; empty?: ReactNode }) {
+  // Sur mobile, chaque ligne devient une carte : l'étiquette de colonne est injectée dans chaque cellule (data-label).
+  const rows = Children.map(children, (row) =>
+    isValidElement(row)
+      ? cloneElement(row as ReactElement<any>, {}, Children.map((row as ReactElement<any>).props.children, (cell, i) =>
+          isValidElement(cell) ? cloneElement(cell as ReactElement<any>, { 'data-label': head[i] ?? '' } as any) : cell))
+      : row);
   return (
-    <div className="card overflow-hidden p-0">
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[640px] text-left text-sm">
-          <thead className="bg-surface-2 text-xs uppercase tracking-wide text-muted">
+    <div className="card overflow-hidden p-0 max-md:border-0 max-md:bg-transparent max-md:shadow-none">
+      <div className="md:overflow-x-auto">
+        <table className="w-full text-left text-sm md:min-w-[640px] max-md:block">
+          <thead className="bg-surface-2 text-xs uppercase tracking-wide text-muted max-md:hidden">
             <tr>{head.map((h) => <th key={h} scope="col" className="whitespace-nowrap px-4 py-3 font-semibold">{h}</th>)}</tr>
           </thead>
-          <tbody className="divide-y divide-border">{children}</tbody>
+          <tbody className="divide-y divide-border max-md:block max-md:space-y-3 max-md:divide-y-0 [&>tr]:max-md:block [&>tr]:max-md:rounded-3xl [&>tr]:max-md:border [&>tr]:max-md:border-border [&>tr]:max-md:bg-surface [&>tr]:max-md:p-3 [&>tr]:max-md:shadow-card">{rows}</tbody>
         </table>
       </div>
       {empty}
     </div>
   );
 }
-export const Td = (p: ComponentProps<'td'>) => <td {...p} className={clsx('px-4 py-3 align-middle', p.className)} />;
+export const Td = (p: ComponentProps<'td'>) => <td {...p} className={clsx('px-4 py-3 align-middle max-md:flex max-md:items-center max-md:justify-between max-md:gap-3 max-md:px-2 max-md:py-1.5 max-md:text-right before:max-md:text-left before:max-md:text-xs before:max-md:font-semibold before:max-md:text-muted before:max-md:content-[attr(data-label)]', p.className)} />;
 
 export function KV({ label, children }: { label: ReactNode; children: ReactNode }) {
   return (

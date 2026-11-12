@@ -12,7 +12,7 @@ export default {
         fg: v('fg'), muted: v('muted'), border: v('border'),
         primary: { DEFAULT: v('primary'), fg: v('primary-fg'), soft: v('primary-soft') },
         accent: { DEFAULT: v('accent'), soft: v('accent-soft') },
-        night: v('night'),
+        night: v('night'), sun: v('sun'), coral: v('coral'), sky: v('sky'), violet: v('violet'),
         success: v('success'), warning: v('warning'), danger: v('danger'), info: v('info'),
       },
       fontFamily: { sans: ['"Inter Variable"', 'Inter', 'system-ui', 'sans-serif'] },

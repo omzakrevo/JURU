@@ -13,7 +13,7 @@ export function ThemeToggle() {
   };
   return (
     <button onClick={toggle} aria-label={dark ? 'Activer le mode clair' : 'Activer le mode sombre'} title="Thème"
-      className="rounded-full p-2 text-fg transition hover:bg-surface-2">
+      className="rounded-full p-2 text-inherit transition hover:bg-surface-2 max-lg:hover:bg-white/10">
       {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
     </button>
   );

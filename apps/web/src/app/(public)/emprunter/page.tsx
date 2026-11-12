@@ -18,7 +18,7 @@ export default function Page() {
             <ul className="mt-3 space-y-2 text-sm">{(l as string[]).map((x) => <li key={x} className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-accent" />{x}</li>)}</ul></Card>
         ))}
       </Section>
-      <Section><h2 className="mb-5 text-2xl font-bold">Estimez votre mensualité</h2><Simulator /></Section>
+      <Section className="max-lg:hidden"><h2 className="mb-5 text-2xl font-bold">Estimez votre mensualité</h2><Simulator /></Section>
       <Section><Card className="border-warning/40 bg-warning/10 text-sm">
         <strong>Emprunter engage.</strong> Ne vous endettez qu’en fonction de votre capacité de remboursement. Un retard entraîne une pénalité
         précisée dans votre contrat avant signature.</Card></Section>

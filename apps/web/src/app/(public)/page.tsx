@@ -1,6 +1,7 @@
 import { ArrowRight, BadgeCheck, FileSignature, HandCoins, Lock, ScanFace, Search, ShieldCheck, Smartphone, Users } from 'lucide-react';
 import { ButtonLink, Card } from '@/components/ui';
 import { Simulator } from '@/components/public/Simulator';
+import { MobileHome } from '@/components/public/MobileHome';
 
 const steps = [
   { icon: ScanFace, t: '1. Vérifiez votre identité', d: 'Inscription par téléphone et code OTP, puis KYC : pièce d’identité et selfie, examinés avec soin.' },
@@ -12,6 +13,8 @@ const steps = [
 export default function HomePage() {
   return (
     <>
+      <MobileHome />
+      <div className="hidden lg:block">
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_80%_0%,rgb(var(--accent)/.18),transparent),radial-gradient(60%_50%_at_0%_20%,rgb(var(--primary)/.14),transparent)]" />
         <div className="container-x grid items-center gap-10 py-16 sm:py-24 lg:grid-cols-[1.15fr_.85fr]">
@@ -90,6 +93,7 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+      </div>
     </>
   );
 }

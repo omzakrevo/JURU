@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, FileText, HandCoins, Briefcase, Wallet } from 'lucide-react';
 import { ButtonLink, Card, EmptyState, PageHeader, Stat, StatusBadge } from '@/components/ui';
+import { MobileDashboard } from '@/components/MobileDashboard';
 import { requireSession } from '@/lib/session';
 import { createClient } from '@/lib/supabase/server';
 import { formatCalendarDate } from '@/lib/dates';
@@ -28,8 +29,16 @@ export default async function Page() {
   const owed = rows.filter((r) => borrowed.some((l) => l.id === r.loan_id)).reduce((a, r) => a + r.principal_due - r.principal_paid, 0);
   const lentOut = rows.filter((r) => lent.some((l) => l.id === r.loan_id)).reduce((a, r) => a + r.principal_due - r.principal_paid, 0);
 
+  const first = s.profile.full_name ? s.profile.full_name.split(' ')[0] : '';
+  const nextAmt = nextDue ? nextDue.principal_due + nextDue.interest_due - nextDue.principal_paid - nextDue.interest_paid : 0;
+  const kycOk = s.profile.kyc_status === 'approved';
   return (
     <>
+      <MobileDashboard first={first} kycOk={kycOk} nextAmt={nextAmt} nextDate={nextDue?.due_date ?? null} owed={owed} lentOut={lentOut}
+        requests={reqs?.length ?? 0} offers={offers?.length ?? 0} loans={ls.length} />
+
+      {/* ===== Bureau ===== */}
+      <div className="hidden lg:block">
       <PageHeader title={`Bonjour${s.profile.full_name ? ', ' + s.profile.full_name.split(' ')[0] : ''} 👋`} subtitle="Voici l’essentiel de votre activité."
         actions={<>{s.profile.is_borrower && <ButtonLink href="/app/demandes/nouvelle" size="sm">Nouvelle demande</ButtonLink>}{s.profile.is_lender && <ButtonLink href="/app/offres/nouvelle" size="sm" variant="outline">Nouvelle offre</ButtonLink>}</>} />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -53,6 +62,7 @@ export default async function Page() {
             <Card className="divide-y divide-border !p-0">{(notifs ?? []).map((n: { id: string; title: string; body: string; read_at: string | null }) => (
               <div key={n.id} className="p-4"><p className={`text-sm ${n.read_at ? '' : 'font-semibold'}`}>{n.title}</p><p className="text-xs text-muted">{n.body}</p></div>))}</Card>)}
         </section>
+      </div>
       </div>
     </>
   );

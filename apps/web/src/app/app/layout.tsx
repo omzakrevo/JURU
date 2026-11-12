@@ -17,8 +17,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
   const kyc = s.profile.kyc_status;
   return (
     <>
-      <DemoBanner compact />
-      <AppShell name={s.profile.full_name ?? s.profile.phone ?? 'Mon compte'} unread={count ?? 0} isStaff={s.isStaff}>
+      <AppShell banner={<DemoBanner compact />} name={s.profile.full_name ?? s.profile.phone ?? 'Mon compte'} unread={count ?? 0} isStaff={s.isStaff}>
         {kyc !== 'approved' && (
           <div className="mb-6"><Alert tone={kyc === 'rejected' ? 'danger' : 'info'} title={kyc === 'pending' ? 'Vérification d’identité en cours' : 'Vérifiez votre identité pour emprunter ou prêter'}>
             {kyc === 'pending' ? 'Nous examinons vos documents.' : <>Le KYC est obligatoire. <Link href="/app/kyc" className="font-semibold underline">Commencer</Link></>}</Alert></div>

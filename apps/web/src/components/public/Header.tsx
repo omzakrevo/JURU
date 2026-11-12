@@ -1,8 +1,6 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
 import clsx from 'clsx';
 import { Logo } from '@/components/Logo';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -18,49 +16,42 @@ const NAV = [
 
 export function Header({ loggedIn }: { loggedIn: boolean }) {
   const path = usePathname();
-  const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-bg/85 backdrop-blur-md">
-      <div className="container-x flex h-16 items-center justify-between gap-4">
-        <Link href="/" aria-label="JURU — accueil"><Logo /></Link>
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigation principale">
-          {NAV.map((n) => (
-            <Link key={n.href} href={n.href}
-              className={clsx('rounded-full px-3 py-2 text-sm font-medium transition hover:bg-surface-2', path === n.href && 'bg-primary-soft text-primary')}>
-              {n.label}
-            </Link>
-          ))}
-        </nav>
+    <>
+      {/* Mobile : barre d'application */}
+      <header className="relative z-20 flex h-14 shrink-0 items-center justify-between bg-gradient-to-r from-[#0F1B4C] to-[#2B3C9C] px-3 text-white lg:hidden">
+        <Link href="/" aria-label="JURU — accueil"><Logo light /></Link>
         <div className="flex items-center gap-1.5">
           <ThemeToggle />
-          {loggedIn ? (
-            <Link href="/app" className="hidden rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-fg sm:inline-flex">Mon espace</Link>
-          ) : (
-            <>
-              <Link href="/connexion" className="hidden rounded-full px-3 py-2 text-sm font-semibold hover:bg-surface-2 sm:inline-flex">Connexion</Link>
-              <Link href="/inscription" className="hidden rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-fg sm:inline-flex">Créer un compte</Link>
-            </>
-          )}
-          <button className="rounded-full p-2 lg:hidden" aria-label="Menu" aria-expanded={open} onClick={() => setOpen(!open)}>
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          {loggedIn ? <Link href="/app" className="rounded-full bg-gradient-to-br from-[#19D38A] to-[#05A66F] px-4 py-2 text-sm font-extrabold text-night">Mon espace</Link>
+            : <Link href="/connexion" className="rounded-full bg-gradient-to-br from-[#FFD43B] to-[#FF9F1C] px-4 py-2 text-sm font-extrabold text-night">Connexion</Link>}
         </div>
-      </div>
-      {open && (
-        <div className="border-t border-border bg-bg lg:hidden">
-          <nav className="container-x flex flex-col gap-1 py-3" aria-label="Navigation mobile">
-            {NAV.map((n) => <Link key={n.href} href={n.href} onClick={() => setOpen(false)} className="rounded-xl px-3 py-3 text-base font-medium hover:bg-surface-2">{n.label}</Link>)}
-            <div className="mt-2 flex gap-2">
-              {loggedIn ? <Link href="/app" className="flex-1 rounded-full bg-primary px-4 py-3 text-center font-semibold text-primary-fg">Mon espace</Link> : (
-                <>
-                  <Link href="/connexion" className="flex-1 rounded-full border border-border px-4 py-3 text-center font-semibold">Connexion</Link>
-                  <Link href="/inscription" className="flex-1 rounded-full bg-primary px-4 py-3 text-center font-semibold text-primary-fg">Créer un compte</Link>
-                </>
-              )}
-            </div>
+      </header>
+      {/* Bureau */}
+      <header className="sticky top-0 z-40 hidden border-b border-border/70 bg-bg/85 backdrop-blur-md lg:block">
+        <div className="container-x flex h-16 items-center justify-between gap-4">
+          <Link href="/" aria-label="JURU — accueil"><Logo /></Link>
+          <nav className="flex items-center gap-1" aria-label="Navigation principale">
+            {NAV.map((n) => (
+              <Link key={n.href} href={n.href}
+                className={clsx('rounded-full px-3 py-2 text-sm font-medium transition hover:bg-surface-2', path === n.href && 'bg-primary-soft text-primary')}>
+                {n.label}
+              </Link>
+            ))}
           </nav>
+          <div className="flex items-center gap-1.5">
+            <ThemeToggle />
+            {loggedIn ? (
+              <Link href="/app" className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white">Mon espace</Link>
+            ) : (
+              <>
+                <Link href="/connexion" className="rounded-full px-3 py-2 text-sm font-semibold hover:bg-surface-2">Connexion</Link>
+                <Link href="/inscription" className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white">Créer un compte</Link>
+              </>
+            )}
+          </div>
         </div>
-      )}
-    </header>
+      </header>
+    </>
   );
 }
