@@ -21,7 +21,7 @@ export function AdminShell({ children, sections, name, roles }: { children: Reac
   return (
     <div className="lg:grid lg:grid-cols-[250px_1fr]">
       <aside className="sticky top-0 hidden h-dvh flex-col bg-night p-4 text-white lg:flex">
-        <Link href="/admin" className="flex items-center gap-2 px-2 py-2"><Logo light /><span className="rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-bold uppercase text-accent">Admin</span></Link>
+        <Link href="/admin" className="flex items-center gap-2 px-2 py-2"><Logo light /><span className="rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-semibold text-accent">Admin</span></Link>
         <nav className="mt-5 flex-1 space-y-0.5 overflow-y-auto">
           {items.map(([k, href, label, Icon]) => <Link key={k} href={href} className={clsx('flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition hover:bg-white/10', (href === '/admin' ? path === href : path.startsWith(href)) && 'bg-white/15 font-semibold')}><Icon className="h-4 w-4" />{label}</Link>)}
           <Link href="/app" className="mt-3 flex items-center gap-3 rounded-xl border border-white/15 px-3 py-2 text-sm hover:bg-white/10"><Shield className="h-4 w-4" />Mon espace</Link>

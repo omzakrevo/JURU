@@ -20,7 +20,7 @@ export function ActionForm({ action, children, submit, variant = 'primary', clas
       {state.ok && state.message && <Alert tone="success">{state.message}</Alert>}
       {!hideSubmit && (
         <button type="submit" disabled={pending}
-          className={isHero ? 'btn-hero inline-flex items-center justify-center gap-2' : clsx('inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition hover:brightness-110 active:scale-[.98] disabled:opacity-60', fullWidth && 'w-full py-3.5 text-base font-extrabold', v)}>
+          className={isHero ? 'btn-hero inline-flex items-center justify-center gap-2' : clsx('inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition hover:brightness-110 active:scale-[.98] disabled:opacity-60', fullWidth && 'w-full py-3.5 text-base font-semibold', v)}>
           {pending && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
           {pending ? 'Traitement…' : submit}
         </button>

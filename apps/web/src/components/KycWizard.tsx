@@ -60,34 +60,34 @@ export function KycWizard({ userId }: { userId: string }) {
       <WizardFrame labels={labels} step={step} setStep={setStep} canNext={canNext} canSubmit={consent && Boolean(paths.front && paths.selfie && (type === 'passport' || paths.back))} submitLabel="Envoyer mon dossier">
         {step === 0 && (
           <div className="flex h-full flex-col justify-center gap-4">
-            <h2 className="text-center text-xl font-extrabold">Quelle pièce utilisez-vous ?</h2>
-            <div className="grid grid-cols-2 gap-3">{DOCS.map(([k, v, c]) => <Tile key={k} on={type === k} cls={c} onClick={() => { setType(k); setPaths({}); setPreviews({}); }} label={v}><span className="py-5 text-base font-extrabold">{v}</span></Tile>)}</div>
+            <h2 className="text-center text-xl font-semibold">Quelle pièce utilisez-vous ?</h2>
+            <div className="grid grid-cols-2 gap-3">{DOCS.map(([k, v, c]) => <Tile key={k} on={type === k} cls={c} onClick={() => { setType(k); setPaths({}); setPreviews({}); }} label={v}><span className="py-5 text-base font-semibold">{v}</span></Tile>)}</div>
             <p className="text-center text-xs text-muted">Nous ne gardons jamais le numéro complet : seulement les 4 derniers caractères.</p>
           </div>)}
         {kind && (() => { const C = COPY[kind]; return (
           <div className="flex h-full flex-col items-center justify-center gap-4 text-center">
-            <h2 className="text-xl font-extrabold">{C.title}</h2>
+            <h2 className="text-xl font-semibold">{C.title}</h2>
             <p className="max-w-[18rem] text-sm text-muted">{C.hint}</p>
             <label className="relative flex aspect-[4/3] w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-[28px] border-2 border-dashed border-primary/40 bg-surface shadow-card active:scale-[.98]">
               {previews[kind] ? (
                 // eslint-disable-next-line @next/next/no-img-element -- aperçu local (blob:), next/image ne s'applique pas
                 <img src={previews[kind]} alt={`Aperçu : ${C.title}`} className="absolute inset-0 h-full w-full object-cover" />
-              ) : <><span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary-soft text-primary">{busy === kind ? <Loader2 className="h-7 w-7 animate-spin" /> : <C.icon className="h-7 w-7" />}</span><span className="mt-3 text-sm font-extrabold">{busy === kind ? 'Envoi sécurisé…' : 'Appuyez pour prendre la photo'}</span></>}
+              ) : <><span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary-soft text-primary">{busy === kind ? <Loader2 className="h-7 w-7 animate-spin" /> : <C.icon className="h-7 w-7" />}</span><span className="mt-3 text-sm font-semibold">{busy === kind ? 'Envoi sécurisé…' : 'Appuyez pour prendre la photo'}</span></>}
               {paths[kind] && <span className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-accent text-[#08281A]"><Check className="h-5 w-5" strokeWidth={3} /></span>}
               <input type="file" accept="image/jpeg,image/png,application/pdf" capture={kind === 'selfie' ? 'user' : 'environment'} onChange={(e) => upload(kind, e.target.files?.[0])} className="sr-only" aria-label={C.title} />
             </label>
-            {paths[kind] && <p className="text-xs font-bold text-success">Envoyé de façon sécurisée · touchez pour reprendre</p>}
+            {paths[kind] && <p className="text-xs font-semibold text-success">Envoyé de façon sécurisée · touchez pour reprendre</p>}
             {err && <Alert tone="danger">{err}</Alert>}
           </div>); })()}
         {isDetails && (
           <div className="flex h-full flex-col justify-center gap-4">
-            <h2 className="text-center text-xl font-extrabold">Derniers détails</h2>
-            <label className="block"><span className="label">4 derniers caractères du numéro</span><input value={last4} onChange={(e) => setLast4(e.target.value.slice(0, 4))} maxLength={4} className="input text-center text-2xl font-black tracking-[0.4em]" placeholder="••••" /></label>
+            <h2 className="text-center text-xl font-semibold">Derniers détails</h2>
+            <label className="block"><span className="label">4 derniers caractères du numéro</span><input value={last4} onChange={(e) => setLast4(e.target.value.slice(0, 4))} maxLength={4} className="input text-center text-2xl font-semibold tracking-[0.4em]" placeholder="••••" /></label>
             <label className="block"><span className="label">Date d’expiration</span><input type="date" value={expiry} onChange={(e) => setExpiry(e.target.value)} className="input" /></label>
           </div>)}
         {step === lastStep && (
           <div className="flex h-full flex-col justify-center gap-4">
-            <h2 className="text-center text-xl font-extrabold">Dernière étape</h2>
+            <h2 className="text-center text-xl font-semibold">Dernière étape</h2>
             <div className="rounded-3xl bg-surface p-4 shadow-card"><ul className="space-y-1.5 text-sm font-semibold">
               {([['Pièce', DOCS.find((d) => d[0] === type)![1]], ...photos.map((k) => [COPY[k].title, paths[k] ? '✓ envoyé' : '—']), ['Numéro', last4 ? `•••${last4}` : '—']] as string[][]).map(([k, v]) => <li key={k} className="flex justify-between"><span className="text-muted">{k}</span><span>{v}</span></li>)}</ul></div>
             <label className="flex items-start gap-3 rounded-3xl border border-border bg-surface p-4 text-sm shadow-card"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 h-5 w-5 shrink-0 accent-[rgb(var(--primary))]" /><span>Je consens explicitement à ce que JURU traite mes documents et mon selfie pour vérifier mon identité et prévenir la fraude.</span></label>

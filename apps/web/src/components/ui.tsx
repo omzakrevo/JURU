@@ -5,8 +5,8 @@ import { statusInfo, type Tone } from '@/lib/constants';
 import { Inbox } from 'lucide-react';
 
 const btn = {
-  primary: 'bg-primary text-primary-fg hover:brightness-110 shadow-[0_8px_20px_-10px_rgb(20_69_47/.8)]',
-  accent: 'bg-accent text-night hover:brightness-105 shadow-[0_8px_20px_-10px_rgb(47_191_113/.8)]',
+  primary: 'bg-primary text-primary-fg hover:brightness-110',
+  accent: 'bg-accent text-night hover:brightness-105',
   secondary: 'bg-surface-2 text-fg hover:brightness-95 border border-border',
   ghost: 'text-fg hover:bg-surface-2',
   danger: 'bg-danger text-white hover:brightness-110',
@@ -16,7 +16,7 @@ const sizes = { sm: 'px-3.5 py-2 text-sm', md: 'px-5 py-3 text-sm', lg: 'px-6 py
 
 type BtnProps = { variant?: keyof typeof btn; size?: keyof typeof sizes; className?: string };
 const btnClass = ({ variant = 'primary', size = 'md', className }: BtnProps) =>
-  clsx('inline-flex items-center justify-center gap-2 rounded-full font-bold transition active:scale-[.97] disabled:pointer-events-none disabled:opacity-50', btn[variant], sizes[size], className);
+  clsx('inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:scale-[.97] disabled:pointer-events-none disabled:opacity-50', btn[variant], sizes[size], className);
 
 export function Button({ variant, size, className, ...p }: ComponentProps<'button'> & BtnProps) {
   return <button {...p} className={btnClass({ variant, size, className })} />;
@@ -45,7 +45,7 @@ export function PageHeader({ title, subtitle, actions }: { title: string; subtit
   return (
     <div className="mb-4 flex flex-wrap items-end justify-between gap-2 lg:mb-6 lg:gap-3">
       <div>
-        <h1 className="text-xl font-extrabold tracking-tight sm:text-2xl lg:text-3xl">{title}</h1>
+        <h1 className="text-xl font-semibold tracking-tight sm:text-2xl lg:text-3xl">{title}</h1>
         {subtitle && <p className="mt-0.5 max-w-2xl text-xs text-muted sm:text-sm lg:mt-1">{subtitle}</p>}
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
@@ -60,7 +60,7 @@ export function Stat({ label, value, hint, icon }: { label: string; value: React
         <p className="text-sm text-muted">{label}</p>
         {icon && <span className="rounded-xl bg-primary-soft p-2 text-primary">{icon}</span>}
       </div>
-      <p className="mt-2 text-2xl font-bold tracking-tight">{value}</p>
+      <p className="mt-2 text-2xl font-semibold tracking-tight">{value}</p>
       {hint && <p className="mt-1 text-xs text-muted">{hint}</p>}
     </div>
   );
@@ -113,7 +113,7 @@ export function Table({ head, children, empty }: { head: string[]; children: Rea
     <div className="card overflow-hidden p-0 max-md:border-0 max-md:bg-transparent max-md:shadow-none">
       <div className="md:overflow-x-auto">
         <table className="w-full text-left text-sm md:min-w-[640px] max-md:block">
-          <thead className="bg-surface-2 text-xs uppercase tracking-wide text-muted max-md:hidden">
+          <thead className="bg-surface-2 text-xs text-muted max-md:hidden">
             <tr>{head.map((h) => <th key={h} scope="col" className="whitespace-nowrap px-4 py-3 font-semibold">{h}</th>)}</tr>
           </thead>
           <tbody className="divide-y divide-border max-md:block max-md:space-y-3 max-md:divide-y-0 [&>tr]:max-md:block [&>tr]:max-md:rounded-3xl [&>tr]:max-md:border [&>tr]:max-md:border-border [&>tr]:max-md:bg-surface [&>tr]:max-md:p-3 [&>tr]:max-md:shadow-card">{rows}</tbody>

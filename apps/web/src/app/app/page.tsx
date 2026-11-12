@@ -41,7 +41,7 @@ export default async function Page() {
 
       {/* ===== Bureau ===== */}
       <div className="hidden lg:block">
-      <PageHeader title={`Bonjour${s.profile.full_name ? ', ' + s.profile.full_name.split(' ')[0] : ''} 👋`} subtitle="Voici l’essentiel de votre activité."
+      <PageHeader title="Tableau de bord" subtitle="L’essentiel de votre activité"
         actions={<>{s.profile.is_borrower && <ButtonLink href="/app/demandes/nouvelle" size="sm">Nouvelle demande</ButtonLink>}{s.profile.is_lender && <ButtonLink href="/app/offres/nouvelle" size="sm" variant="outline">Nouvelle offre</ButtonLink>}</>} />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Capital que je dois" value={formatFcfa(owed)} icon={<Wallet className="h-4 w-4" />} hint={nextDue ? `Prochaine échéance : ${formatCalendarDate(nextDue.due_date)}` : 'Aucune échéance'} />

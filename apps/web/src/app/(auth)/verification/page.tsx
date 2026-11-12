@@ -13,7 +13,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ p
   const phone = sp.phone ?? '';
   return (
     <div className="text-center">
-      <h1 className="ob-rise text-[34px] font-black leading-tight tracking-tight">Entrez votre code</h1>
+      <h1 className="display ob-rise text-[40px]">Entrez votre code</h1>
       <p className="ob-rise mt-2 text-base text-muted" style={d(80)}>Un SMS a été envoyé au <strong className="text-fg">{maskPhone(phone)}</strong>.</p>
       <div className="mt-8 text-left">
         <ActionForm action={verifyOtp} submit="Valider" variant="hero" className="!space-y-6">
@@ -21,7 +21,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ p
           <div className="ob-rise" style={d(160)}><OtpInput /></div>
         </ActionForm>
       </div>
-      <p className="ob-rise mt-7 text-base text-muted" style={d(240)}>Pas reçu ? <Link href={sp.mode === 'signup' ? '/inscription' : '/connexion'} className="font-extrabold text-primary hover:underline">Renvoyer un code</Link></p>
+      <p className="ob-rise mt-7 text-base text-muted" style={d(240)}>Pas reçu ? <Link href={sp.mode === 'signup' ? '/inscription' : '/connexion'} className="font-semibold text-primary hover:underline">Renvoyer un code</Link></p>
     </div>
   );
 }

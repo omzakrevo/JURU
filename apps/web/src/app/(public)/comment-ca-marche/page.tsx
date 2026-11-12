@@ -24,7 +24,7 @@ export default function Page() {
         <ol className="grid gap-4 md:grid-cols-2">
           {steps.map(([t, d], i) => (
             <li key={t}><Card className="flex h-full gap-4">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-fg">{i + 1}</span>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-fg">{i + 1}</span>
               <div><h2 className="font-semibold">{t}</h2><p className="mt-1 text-sm text-muted">{d}</p></div>
             </Card></li>
           ))}

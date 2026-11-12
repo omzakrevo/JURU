@@ -24,7 +24,7 @@ export function OtpInput({ length = 6, name = 'token' }: { length?: number; name
           <div key={i} className={clsx('field-lg !h-[68px] flex-1 !px-0 justify-center', v && 'ob-pop-once')}>
             <input ref={(el) => { refs.current[i] = el; }} value={v} inputMode="numeric" autoComplete={i === 0 ? 'one-time-code' : 'off'} maxLength={length} aria-label={`Chiffre ${i + 1}`}
               onChange={(e) => set(i, e.target.value)} onKeyDown={(e) => { if (e.key === 'Backspace' && !d[i] && i > 0) { refs.current[i - 1]?.focus(); } }}
-              onFocus={(e) => e.target.select()} className="!text-center !text-[28px] !font-black" />
+              onFocus={(e) => e.target.select()} className="!text-center !text-[28px] !font-semibold" />
           </div>))}
       </div>
     </div>

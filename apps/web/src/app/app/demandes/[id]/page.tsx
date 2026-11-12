@@ -44,7 +44,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
       </div>
       {(matches ?? []).length > 0 && (<section className="mt-8"><h2 className="mb-3 font-semibold">Offres compatibles (matching)</h2>
         <div className="grid gap-3 sm:grid-cols-2">{(matches as { offer_id: string; title: string; lender_display: string; annual_rate_bps: number; match_score: number; quote: { monthly_payment: number; total_cost: number } }[]).map((m) => (
-          <Card key={m.offer_id} className="!p-4"><div className="flex justify-between"><p className="font-semibold">{m.title}</p><span className="rounded-full bg-accent-soft px-2 text-xs font-bold text-primary">{m.match_score}% match</span></div>
+          <Card key={m.offer_id} className="!p-4"><div className="flex justify-between"><p className="font-semibold">{m.title}</p><span className="rounded-full bg-accent-soft px-2 text-xs font-semibold text-primary">{m.match_score}% match</span></div>
             <p className="text-sm text-muted">{m.lender_display} · {formatBps(m.annual_rate_bps)} · mensualité {formatFcfa(m.quote.monthly_payment)} · coût total {formatFcfa(m.quote.total_cost)}</p>
             <p className="mt-2 text-xs text-muted">Le prêteur doit vous adresser une proposition ferme : vous la recevrez ci-dessus.</p></Card>))}</div></section>)}
       <div className="mt-6"><ButtonLink href="/app/demandes" variant="ghost" size="sm">← Retour</ButtonLink></div>

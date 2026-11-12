@@ -18,13 +18,12 @@ export default async function HomePage() {
       <Onboarding loggedIn={Boolean(session)} />
       <div className="hidden lg:block">
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_80%_0%,rgb(var(--accent)/.18),transparent),radial-gradient(60%_50%_at_0%_20%,rgb(var(--primary)/.14),transparent)]" />
         <div className="container-x grid items-center gap-10 py-16 sm:py-24 lg:grid-cols-[1.15fr_.85fr]">
           <div className="animate-fade-up">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold text-primary">
               <BadgeCheck className="h-4 w-4" /> Pour les entrepreneurs · Burkina Faso · bientôt UEMOA
             </span>
-            <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">
+            <h1 className="display mt-5 text-5xl sm:text-7xl">
               Le financement,<br /><span className="text-primary">en toute confiance.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted">
@@ -41,9 +40,8 @@ export default async function HomePage() {
           </div>
           <div className="animate-fade-up [animation-delay:120ms]">
             <Card className="relative overflow-hidden bg-night text-white !border-white/10">
-              <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-accent/30 blur-3xl" />
               <p className="text-sm text-white/60">Exemple de proposition</p>
-              <p className="mt-1 text-3xl font-extrabold">150&nbsp;000 FCFA</p>
+              <p className="mt-1 text-3xl font-semibold">150&nbsp;000 FCFA</p>
               <p className="text-sm text-white/70">sur 6 mois · 18 % par an</p>
               <dl className="mt-5 space-y-2 text-sm">
                 {[['Mensualité', '24 079 + 2 250 …'], ['Commission unique', '3 000 FCFA'], ['Coût total du crédit', '10 972 FCFA'], ['TAEG', '28,27 %']].map(([k, v]) => <div key={k} className="flex justify-between border-b border-white/10 pb-1.5"><dt className="text-white/60">{k}</dt><dd className="font-semibold">{v}</dd></div>)}
@@ -55,7 +53,7 @@ export default async function HomePage() {
       </section>
 
       <section className="container-x py-14">
-        <h2 className="text-center text-3xl font-bold tracking-tight">Simple, clair, vérifié</h2>
+        <h2 className="text-center text-3xl font-semibold tracking-tight">Simple, clair, vérifié</h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s) => (
             <Card key={s.t} className="transition hover:-translate-y-0.5 hover:shadow-pop">
@@ -68,19 +66,19 @@ export default async function HomePage() {
       </section>
 
       <section className="container-x py-10">
-        <div className="mb-6 max-w-2xl"><h2 className="text-3xl font-bold tracking-tight">Simulez votre financement</h2>
+        <div className="mb-6 max-w-2xl"><h2 className="text-3xl font-semibold tracking-tight">Simulez votre financement</h2>
           <p className="mt-2 text-muted">Échéancier, coût total et TAEG calculés exactement comme sur la plateforme.</p></div>
         <Simulator />
       </section>
 
       <section className="container-x grid gap-4 py-14 md:grid-cols-2">
         <Card className="bg-primary text-primary-fg !border-transparent">
-          <Users className="h-7 w-7" /><h3 className="mt-4 text-2xl font-bold">Je cherche un financement</h3>
+          <Users className="h-7 w-7" /><h3 className="mt-4 text-2xl font-semibold">Je cherche un financement</h3>
           <p className="mt-2 text-primary-fg/80">Décrivez votre besoin, comparez les propositions de prêteurs vérifiés et choisissez en connaissance de cause.</p>
           <ButtonLink href="/emprunter" variant="accent" className="mt-5">Découvrir « Emprunter »</ButtonLink>
         </Card>
         <Card>
-          <HandCoins className="h-7 w-7 text-primary" /><h3 className="mt-4 text-2xl font-bold">Je souhaite prêter</h3>
+          <HandCoins className="h-7 w-7 text-primary" /><h3 className="mt-4 text-2xl font-semibold">Je souhaite prêter</h3>
           <p className="mt-2 text-muted">Publiez une offre aux conditions que vous choisissez, consultez les demandes compatibles et suivez vos remboursements.</p>
           <ButtonLink href="/preter" variant="outline" className="mt-5">Découvrir « Prêter »</ButtonLink>
         </Card>

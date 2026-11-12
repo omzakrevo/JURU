@@ -15,10 +15,10 @@ export default {
         night: v('night'), sun: v('sun'), coral: v('coral'), sky: v('sky'), violet: v('violet'),
         success: v('success'), warning: v('warning'), danger: v('danger'), info: v('info'),
       },
-      fontFamily: { sans: ['"Inter Variable"', 'Inter', 'system-ui', 'sans-serif'] },
+      fontFamily: { sans: ['"Figtree Variable"', 'Figtree', 'system-ui', 'sans-serif'], display: ['"Instrument Serif"', 'Georgia', 'serif'] },
       borderRadius: { xl: '0.9rem', '2xl': '1.25rem', '3xl': '1.75rem' },
       boxShadow: {
-        card: '0 1px 2px rgb(var(--shadow) / 0.06), 0 8px 24px -12px rgb(var(--shadow) / 0.18)',
+        card: '0 1px 2px rgb(var(--shadow) / 0.05)',
         pop: '0 12px 40px -12px rgb(var(--shadow) / 0.35)',
       },
       keyframes: {

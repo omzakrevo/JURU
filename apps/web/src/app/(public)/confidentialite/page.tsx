@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'Politique de confidentialité' };
 export default function Page() {
   return (
     <Prose>
-      <h1 className="text-3xl font-extrabold">Politique de confidentialité</h1>
+      <h1 className="text-3xl font-semibold">Politique de confidentialité</h1>
       <div className="mt-4"><Alert tone="warning" title="Projet de texte — à faire valider par un conseil juridique">À adapter à la réglementation applicable (protection des données personnelles, autorité nationale compétente) avant toute mise en production.</Alert></div>
       <h2>Données collectées</h2><ul><li>Identité : nom, date de naissance, téléphone, ville, pièce d’identité (recto/verso) et selfie (avec consentement).</li><li>Situation financière déclarée : revenus, charges.</li><li>Données d’usage : demandes, offres, contrats, transactions (simulées en démonstration), journaux de sécurité.</li></ul>
       <h2>Finalités</h2><p>Vérifier l’identité, évaluer les demandes, générer les contrats, prévenir la fraude et le blanchiment, respecter les obligations légales, vous notifier (SMS, notifications).</p>

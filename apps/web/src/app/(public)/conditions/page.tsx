@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'Conditions d’utilisation' };
 export default function Page() {
   return (
     <Prose>
-      <h1 className="text-3xl font-extrabold">Conditions générales d’utilisation</h1>
+      <h1 className="text-3xl font-semibold">Conditions générales d’utilisation</h1>
       <div className="mt-4"><Alert tone="warning" title="Projet de texte — à faire valider par un conseil juridique">Ce document est un modèle de travail destiné à la phase de démonstration. Il ne doit pas être utilisé en production sans validation juridique pour le Burkina Faso et l’UEMOA.</Alert></div>
       <h2>1. Objet</h2><p>JURU (nom provisoire) est une plateforme de mise en relation entre emprunteurs et prêteurs. JURU n’est pas un établissement financier agréé et n’octroie pas elle-même de crédit.</p>
       <h2>2. Mode démonstration</h2><p>Tant que les paiements réels ne sont pas activés, tous les flux d’argent (décaissements, remboursements) sont simulés et signalés « MODE DÉMONSTRATION ». Aucun fonds réel n’est transféré.</p>

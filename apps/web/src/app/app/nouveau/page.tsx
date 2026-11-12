@@ -17,7 +17,7 @@ export default async function Page() {
       {tiles.map((x) => (
         <Link key={x.href} href={x.href} className={`tile ${x.cls} aspect-[5/4]`}>
           <x.icon className="h-9 w-9" strokeWidth={2.2} />
-          <span><span className="block text-lg font-extrabold leading-tight">{x.t}</span><span className="mt-1 block text-xs font-semibold opacity-80">{x.d}</span></span>
+          <span><span className="block text-lg font-semibold leading-tight">{x.t}</span><span className="mt-1 block text-xs font-semibold opacity-80">{x.d}</span></span>
         </Link>))}
     </div>
   );

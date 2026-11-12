@@ -51,7 +51,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
           <KV label="Pénalités (dues / payées)">{formatFcfa(l.penalties_accrued)} / {formatFcfa(l.penalties_paid)}</KV><KV label="Décaissé le">{formatDateTime(l.disbursed_at)}</KV></dl>
           <div className="mt-3"><Progress value={l.amount_repaid} max={l.total_repayable} /></div></Card>
         {isBorrower && ['active', 'overdue'].includes(l.status) && next && (
-          <Card><h2 className="mb-3 font-semibold">Rembourser <span className="ml-1 rounded bg-warning px-1.5 py-0.5 text-[10px] font-bold uppercase text-black">Démo</span></h2>
+          <Card><h2 className="mb-3 font-semibold">Rembourser <span className="ml-1 rounded bg-warning px-1.5 py-0.5 text-[10px] font-semibold text-black">Démo</span></h2>
             <ActionForm action={sandbox ? repaySandbox : repay} submit={sandbox ? 'Payer (test SAS Pay)' : 'Payer (simulation)'} variant="accent"><input type="hidden" name="loan_id" value={id} /><input type="hidden" name="key" value={key} />{sandbox && <ChannelFields />}
               <Field label="Montant (FCFA)" htmlFor="amount" help={`Échéance n°${next.installment_no} : ${formatFcfa(due(next))}. Un paiement partiel est possible.`}><Input id="amount" name="amount" inputMode="numeric" defaultValue={due(next)} required /></Field></ActionForm>
             {payoff.data !== null && <div className="mt-4 border-t border-border pt-4"><p className="text-sm">Remboursement anticipé total : <strong>{formatFcfa(payoff.data as number)}</strong> <span className="text-muted">(capital restant + intérêts échus ; intérêts futurs non dus)</span></p>

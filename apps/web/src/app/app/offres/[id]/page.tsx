@@ -32,7 +32,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
           {(matches ?? []).length === 0 ? <Card className="text-sm text-muted">Aucune demande compatible pour l’instant.</Card> :
             (matches as { request_id: string; amount: number; purpose: string; duration_months: number; max_annual_rate_bps: number; risk_grade: string; borrower_display: string; match_score: number }[]).map((m) => (
               <Card key={m.request_id} className="!p-4"><div className="flex flex-wrap items-center justify-between gap-2"><p className="font-semibold">{formatFcfa(m.amount)} · {m.duration_months} mois · {PURPOSES[m.purpose]}</p>
-                <span className="text-xs font-bold">Risque {m.risk_grade} · {m.match_score}% match</span></div>
+                <span className="text-xs font-semibold">Risque {m.risk_grade} · {m.match_score}% match</span></div>
                 <p className="text-sm text-muted">{m.borrower_display} · taux max {formatBps(m.max_annual_rate_bps)}</p>
                 <ActionForm action={proposeApplication} submit="Proposer ce financement" className="mt-3"><input type="hidden" name="request_id" value={m.request_id} /><input type="hidden" name="offer_id" value={id} />
                   <Field label="Message (facultatif)"><Input name="message" maxLength={500} /></Field></ActionForm></Card>))}</div>
