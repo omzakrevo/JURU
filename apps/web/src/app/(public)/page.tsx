@@ -1,7 +1,7 @@
 import { ArrowRight, BadgeCheck, FileSignature, HandCoins, Lock, ScanFace, Search, ShieldCheck, Smartphone, Users } from 'lucide-react';
 import { ButtonLink, Card } from '@/components/ui';
 import { Simulator } from '@/components/public/Simulator';
-import { MobileHome } from '@/components/public/MobileHome';
+import { getSession } from '@/lib/session';
 import { Onboarding } from '@/components/public/Onboarding';
 
 const steps = [
@@ -11,24 +11,24 @@ const steps = [
   { icon: HandCoins, t: '4. Suivez et remboursez', d: 'Échéances, rappels, remboursement partiel ou anticipé. Tout est tracé, rien n’est caché.' },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await getSession();
   return (
     <>
-      <Onboarding />
-      <MobileHome />
+      <Onboarding loggedIn={Boolean(session)} />
       <div className="hidden lg:block">
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_80%_0%,rgb(var(--accent)/.18),transparent),radial-gradient(60%_50%_at_0%_20%,rgb(var(--primary)/.14),transparent)]" />
         <div className="container-x grid items-center gap-10 py-16 sm:py-24 lg:grid-cols-[1.15fr_.85fr]">
           <div className="animate-fade-up">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold text-primary">
-              <BadgeCheck className="h-4 w-4" /> Burkina Faso · bientôt UEMOA
+              <BadgeCheck className="h-4 w-4" /> Pour les entrepreneurs · Burkina Faso · bientôt UEMOA
             </span>
             <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">
               Le financement,<br /><span className="text-primary">en toute confiance.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted">
-              JURU met en relation emprunteurs et prêteurs vérifiés, avec des partenaires financiers réglementés.
+              Besoin de 50&nbsp;000&nbsp;FCFA pour un équipement, du stock ou une commande à honorer ? JURU vous met en relation avec des prêteurs vérifiés.
               De 5&nbsp;000 à 500&nbsp;000&nbsp;FCFA, un coût total toujours affiché, jamais de commission cachée.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">

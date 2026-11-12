@@ -4,8 +4,8 @@ import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import { Calculator, CircleHelp, Grid2x2, Home } from 'lucide-react';
 
-const TABS = [
-  { href: '/', label: 'Accueil', icon: Home, exact: true },
+const TABS: { href: string; label: string; icon: typeof Home; exact?: boolean }[] = [
+  { href: '/accueil', label: 'Accueil', icon: Home },
   { href: '/simulateur', label: 'Simuler', icon: Calculator },
   { href: '/faq', label: 'Aide', icon: CircleHelp },
   { href: '/plus', label: 'Plus', icon: Grid2x2 },

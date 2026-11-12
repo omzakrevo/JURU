@@ -20,7 +20,7 @@ export function Header({ loggedIn }: { loggedIn: boolean }) {
     <>
       {/* Mobile : en-tête clair */}
       <header className="relative z-20 flex h-16 shrink-0 items-center justify-between px-4 lg:hidden">
-        <Link href="/" aria-label="JURU — accueil"><Logo /></Link>
+        <Link href="/accueil" aria-label="JURU — accueil"><Logo /></Link>
         <div className="flex items-center gap-2">
           <ThemeToggle />
           {loggedIn ? <Link href="/app" className="rounded-full bg-primary px-5 py-2.5 text-sm font-extrabold text-primary-fg">Mon espace</Link>

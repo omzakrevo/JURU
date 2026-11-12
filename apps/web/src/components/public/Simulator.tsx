@@ -6,8 +6,8 @@ import { Alert } from '@/components/ui';
 import { sliderStyle } from '@/lib/slider';
 
 /** Simulateur public : estimation indicative, calcul identique à celui du serveur. */
-export function Simulator({ compact }: { compact?: boolean }) {
-  const [amount, setAmount] = useState(100000);
+export function Simulator({ compact, initialAmount }: { compact?: boolean; initialAmount?: number }) {
+  const [amount, setAmount] = useState(initialAmount ?? 100000);
   const [months, setMonths] = useState(6);
   const [rate, setRate] = useState(18);
   const rateBps = Math.round(rate * 100);

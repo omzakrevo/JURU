@@ -4,7 +4,7 @@ import './globals.css';
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
   title: { default: 'JURU — Le financement, en toute confiance', template: '%s · JURU' },
-  description: 'JURU met en relation emprunteurs et prêteurs au Burkina Faso, avec des partenaires financiers réglementés. Plateforme de mise en relation, non établissement financier.',
+  description: 'JURU : le financement rapide pour les entrepreneurs du Burkina Faso. De 5 000 à 500 000 FCFA pour un équipement, du stock ou une commande, avec un coût total toujours affiché. Plateforme de mise en relation, non établissement financier.',
   applicationName: 'JURU',
   robots: { index: true, follow: true },
 };
