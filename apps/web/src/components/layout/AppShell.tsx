@@ -94,7 +94,7 @@ export function AppShell({ children, name, unread, isStaff, banner, pathOverride
             <nav className="relative z-20 flex shrink-0 items-end border-t border-border bg-surface px-1 pb-[max(env(safe-area-inset-bottom),6px)] pt-1 shadow-[0_-8px_24px_-12px_rgb(30_41_110/.25)] lg:hidden" aria-label="Navigation mobile">
               {TABS_L.map((t) => <TabLink key={t.href} t={t} />)}
               <div className="flex flex-1 justify-center">
-                <Link href="/app/nouveau" aria-label="Nouveau" className="-mt-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#FFD43B] to-[#FF7A1C] text-night shadow-[0_10px_24px_-8px_rgb(255_122_28/.9)] ring-4 ring-surface transition active:scale-90"><Plus className="h-8 w-8" strokeWidth={3} /></Link>
+                <Link href="/app/nouveau" aria-label="Nouveau" className="relative -mt-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#FFD43B] to-[#FF7A1C] text-night shadow-[0_10px_24px_-8px_rgb(255_122_28/.9)] ring-4 ring-surface transition active:scale-90"><span aria-hidden className="halo absolute inset-0 rounded-full bg-[#FFB01E]" /><Plus className="relative h-8 w-8" strokeWidth={3} /></Link>
               </div>
               {TABS_R.map((t) => <TabLink key={t.href} t={t} />)}
             </nav>
